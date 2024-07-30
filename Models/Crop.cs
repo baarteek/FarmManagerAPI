@@ -4,7 +4,7 @@ namespace FarmManagerAPI.Models
 {
     public class Crop
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Field Field { get; set; }
         public string Name { get; set; }
         public CropType Type { get; set; }

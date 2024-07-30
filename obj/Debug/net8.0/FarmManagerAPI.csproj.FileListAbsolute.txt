@@ -136,3 +136,4 @@ C:\Users\barte\Desktop\FarmManagerAPI\FarmManagerAPI\obj\Debug\net8.0\FarmManage
 C:\Users\barte\Desktop\FarmManagerAPI\FarmManagerAPI\obj\Debug\net8.0\FarmManagerAPI.genruntimeconfig.cache
 C:\Users\barte\Desktop\FarmManagerAPI\FarmManagerAPI\obj\Debug\net8.0\ref\FarmManagerAPI.dll
 C:\Users\barte\Desktop\FarmManagerAPI\FarmManagerAPI\obj\Debug\net8.0\FarmManagerAPI.sourcelink.json
+C:\Users\barte\Desktop\FarmManagerAPI\FarmManagerAPI\bin\Debug\net8.0\AutoMapper.dll

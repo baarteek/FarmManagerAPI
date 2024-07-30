@@ -2,7 +2,7 @@
 {
     public class SoilMeasurement
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Field Field { get; set; }
         public DateTime Date { get; set; }
         public double? pH { get; set; }

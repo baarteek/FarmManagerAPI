@@ -24,14 +24,12 @@ namespace FarmManagerAPI.Migrations
 
             modelBuilder.Entity("FarmManagerAPI.Models.Crop", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("FieldId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("FieldId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("HarvestDate")
                         .HasColumnType("datetime2");
@@ -58,11 +56,9 @@ namespace FarmManagerAPI.Migrations
 
             modelBuilder.Entity("FarmManagerAPI.Models.Farm", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
@@ -74,8 +70,8 @@ namespace FarmManagerAPI.Migrations
                     b.Property<double?>("TotalArea")
                         .HasColumnType("float");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -86,14 +82,12 @@ namespace FarmManagerAPI.Migrations
 
             modelBuilder.Entity("FarmManagerAPI.Models.Fertilization", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CropId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CropId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -119,17 +113,15 @@ namespace FarmManagerAPI.Migrations
 
             modelBuilder.Entity("FarmManagerAPI.Models.Field", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double?>("Area")
                         .HasColumnType("float");
 
-                    b.Property<int>("FarmId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("FarmId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -147,14 +139,12 @@ namespace FarmManagerAPI.Migrations
 
             modelBuilder.Entity("FarmManagerAPI.Models.PlantProtection", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CropId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CropId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -180,17 +170,15 @@ namespace FarmManagerAPI.Migrations
 
             modelBuilder.Entity("FarmManagerAPI.Models.ReferenceParcel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double?>("Area")
                         .HasColumnType("float");
 
-                    b.Property<int>("FieldId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("FieldId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ParcelNumber")
                         .IsRequired()
@@ -205,17 +193,15 @@ namespace FarmManagerAPI.Migrations
 
             modelBuilder.Entity("FarmManagerAPI.Models.SoilMeasurement", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FieldId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("FieldId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double?>("Nitrogen")
                         .HasColumnType("float");
@@ -238,11 +224,9 @@ namespace FarmManagerAPI.Migrations
 
             modelBuilder.Entity("FarmManagerAPI.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .IsRequired()

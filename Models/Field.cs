@@ -4,7 +4,7 @@ namespace FarmManagerAPI.Models
 {
     public class Field
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Farm Farm { get; set; }
         public string Name { get; set; }
         public double? Area { get; set; }

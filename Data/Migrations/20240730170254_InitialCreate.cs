@@ -15,8 +15,7 @@ namespace FarmManagerAPI.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -30,9 +29,8 @@ namespace FarmManagerAPI.Migrations
                 name: "Farms",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TotalArea = table.Column<double>(type: "float", nullable: true)
@@ -52,9 +50,8 @@ namespace FarmManagerAPI.Migrations
                 name: "Fields",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FarmId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FarmId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Area = table.Column<double>(type: "float", nullable: true),
                     SoilType = table.Column<int>(type: "int", nullable: false)
@@ -74,9 +71,8 @@ namespace FarmManagerAPI.Migrations
                 name: "Crops",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FieldId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FieldId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     SowingDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -98,9 +94,8 @@ namespace FarmManagerAPI.Migrations
                 name: "ReferenceParcels",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FieldId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FieldId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ParcelNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Area = table.Column<double>(type: "float", nullable: true)
                 },
@@ -119,9 +114,8 @@ namespace FarmManagerAPI.Migrations
                 name: "SoilMeasurements",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FieldId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FieldId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     pH = table.Column<double>(type: "float", nullable: true),
                     Nitrogen = table.Column<double>(type: "float", nullable: true),
@@ -143,9 +137,8 @@ namespace FarmManagerAPI.Migrations
                 name: "Fertilizations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CropId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CropId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<double>(type: "float", nullable: true),
@@ -167,9 +160,8 @@ namespace FarmManagerAPI.Migrations
                 name: "PlantProtection",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CropId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CropId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<double>(type: "float", nullable: true),

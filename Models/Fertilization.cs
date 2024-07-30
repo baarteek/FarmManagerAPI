@@ -4,7 +4,7 @@ namespace FarmManagerAPI.Models
 {
     public class Fertilization
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Crop Crop { get; set; }
         public DateTime Date { get; set; }
         public FertilizationType Type { get; set; }
