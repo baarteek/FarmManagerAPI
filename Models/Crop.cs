@@ -10,7 +10,7 @@ namespace FarmManagerAPI.Models
         public CropType Type { get; set; }
         public DateTime? SowingDate { get; set; }
         public DateTime? HarvestDate { get; set; }
-        public bool isActive { get; set; }
+        public bool IsActive { get; set; }
         public ICollection<Fertilization>? Fertilizations { get; set; }
         public ICollection<PlantProtection>? PestAndDiseases { get; set; }
     }

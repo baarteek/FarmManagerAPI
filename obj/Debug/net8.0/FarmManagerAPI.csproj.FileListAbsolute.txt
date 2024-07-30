@@ -135,3 +135,4 @@ C:\Users\barte\Desktop\FarmManagerAPI\FarmManagerAPI\obj\Debug\net8.0\refint\Far
 C:\Users\barte\Desktop\FarmManagerAPI\FarmManagerAPI\obj\Debug\net8.0\FarmManagerAPI.pdb
 C:\Users\barte\Desktop\FarmManagerAPI\FarmManagerAPI\obj\Debug\net8.0\FarmManagerAPI.genruntimeconfig.cache
 C:\Users\barte\Desktop\FarmManagerAPI\FarmManagerAPI\obj\Debug\net8.0\ref\FarmManagerAPI.dll
+C:\Users\barte\Desktop\FarmManagerAPI\FarmManagerAPI\obj\Debug\net8.0\FarmManagerAPI.sourcelink.json
