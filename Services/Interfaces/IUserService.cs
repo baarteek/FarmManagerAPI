@@ -6,8 +6,8 @@ namespace FarmManagerAPI.Services.Interfaces
     {
         Task<UserDTO> GetUserById(Guid id);
         Task<UserDTO> GetUserByEmail(string email);
-        Task AddUser(UserEditDTO user);
-        Task UpdateUser(Guid id, UserEditDTO user);
+        Task AddUser(UserEditDTO userEditDto);
+        Task UpdateUser(Guid id, UserEditDTO userEditDto);
         Task DeleteUser(Guid id);
     }
 }
