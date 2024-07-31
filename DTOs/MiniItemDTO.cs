@@ -1,0 +1,8 @@
+﻿namespace FarmManagerAPI.DTOs
+{
+    public class MiniItemDTO
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+    }
+}
