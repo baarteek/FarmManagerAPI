@@ -1,66 +1,58 @@
 ﻿using AutoMapper;
 using FarmManagerAPI.DTOs;
-using FarmManagerAPI.Models;
-using FarmManagerAPI.Repositories.Implementations;
-using FarmManagerAPI.Repositories.Interfaces;
 using FarmManagerAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace FarmManagerAPI.Services.Implementations
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository userRepository;
+        private readonly UserManager<IdentityUser> userManager;
         private readonly IMapper mapper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(UserManager<IdentityUser> userManager, IMapper mapper)
         {
-            this.userRepository = userRepository;
+            this.userManager = userManager;
             this.mapper = mapper;
-        }
-
-        public async Task AddUser(UserEditDTO userEditDto)
-        {
-            var existingUser = await userRepository.GetByEmail(userEditDto.Email);
-            if(existingUser != null)
-            {
-                throw new InvalidOperationException("User with this email already exists.");
-            }
-
-            var user = mapper.Map<User>(userEditDto);
-            user.Id = Guid.NewGuid();
-            await userRepository.Add(user);
         }
 
         public async Task DeleteUser(Guid id)
         {
-            await userRepository.Delete(id);
+            var user = await userManager.FindByIdAsync(id.ToString());
+            if (user == null) return;
+
+            var result = await userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+            {
+                throw new InvalidOperationException("Could not delete user");
+            }
         }
 
         public async Task<UserDTO> GetUserByEmail(string email)
         {
-            var user = await userRepository.GetByEmail(email);
+            var user = await userManager.FindByEmailAsync(email);
             return mapper.Map<UserDTO>(user);
         }
 
         public async Task<UserDTO> GetUserById(Guid id)
         {
-            var user = await userRepository.GetById(id);
+            var user = await userManager.FindByIdAsync(id.ToString());
             return mapper.Map<UserDTO>(user);
         }
 
         public async Task UpdateUser(Guid id, UserEditDTO userEditDto)
         {
-            var existingUser = await userRepository.GetByEmail(userEditDto.Email);
-            if (existingUser != null && existingUser.Id != id)
-            {
-                throw new InvalidOperationException("User with this email already exists.");
-            }
-
-            var user = await userRepository.GetById(id);
+            var user = await userManager.FindByIdAsync(id.ToString());
             if (user == null) return;
 
-            mapper.Map(userEditDto, user);
-            await userRepository.Update(user);
+            user.Email = userEditDto.Email;
+            user.UserName = userEditDto.UserName;
+
+            var result = await userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                throw new InvalidOperationException("Could not update user");
+            }
         }
     }
 }

@@ -2,11 +2,11 @@
 
 namespace FarmManagerAPI.DTOs
 {
-    public class UserEditDTO
+    public class RegisterDTO
     {
         [Required]
         [MinLength(3)]
-        public string UserName { get; set; }
+        public string Username { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }

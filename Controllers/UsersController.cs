@@ -1,5 +1,4 @@
 ﻿using FarmManagerAPI.DTOs;
-using FarmManagerAPI.Services.Implementations;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,21 +35,6 @@ namespace FarmManagerAPI.Controllers
                 return NotFound();
             }
             return Ok(user);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> AddUser(UserEditDTO userEditDTO)
-        {
-            try
-            {
-                await userService.AddUser(userEditDTO);
-                var user = await userService.GetUserByEmail(userEditDTO.Email);
-                return CreatedAtAction(nameof(GetUser), new { id = user.Id }, userEditDTO);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
         }
 
         [HttpPut("{id}")]

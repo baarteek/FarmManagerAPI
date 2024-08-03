@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FarmManagerAPI.DTOs;
 using FarmManagerAPI.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace FarmManagerAPI.Profiles
 {
@@ -8,8 +9,8 @@ namespace FarmManagerAPI.Profiles
     {
         public MappingProfile() 
         {
-            CreateMap<User, UserDTO>().ReverseMap();
-            CreateMap<User, UserEditDTO>().ReverseMap();
+            CreateMap<IdentityUser, UserDTO>().ReverseMap();
+            CreateMap<IdentityUser, UserEditDTO>().ReverseMap();
             CreateMap<Crop, CropDTO>().ReverseMap();
             CreateMap<Crop, CropEditDTO>().ReverseMap();
             CreateMap<Farm, FarmDTO>().ReverseMap();
