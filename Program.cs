@@ -1,4 +1,5 @@
 using FarmManagerAPI.Data;
+using FarmManagerAPI.Models;
 using FarmManagerAPI.Profiles;
 using FarmManagerAPI.Repositories.Implementations;
 using FarmManagerAPI.Repositories.Interfaces;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,14 +17,46 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "FarmManagerAPI", Version = "v1" });
+
+    // Configure Swagger to use the JWT token
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+    {
+        new OpenApiSecurityScheme
+        {
+            Reference = new OpenApiReference
+            {
+                Type = ReferenceType.SecurityScheme,
+                Id = "Bearer"
+            },
+            Scheme = "oauth2",
+            Name = "Bearer",
+            In = ParameterLocation.Header,
+        },
+        new List<string>()
+    }});
+});
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Register repositories
-
+builder.Services.AddScoped<IFarmRepository, FarmRepository>();
+builder.Services.AddScoped<IGenericRepository<Farm>, GenericRepository<Farm>>();
 
 // Register services
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IFarmService, FarmService>();
 
 // Configure database context
 builder.Services.AddDbContext<FarmContext>(options =>
@@ -63,7 +97,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "FarmManagerAPI v1");
+    });
 }
 
 app.UseHttpsRedirection();

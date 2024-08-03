@@ -31,7 +31,7 @@ namespace FarmManagerAPI.Repositories.Implementations
             }
         }
 
-        public async Task<T> GetById(Guid id)
+        public virtual async Task<T> GetById(Guid id)
         {
             return await dbSet.FindAsync(id);
         }
