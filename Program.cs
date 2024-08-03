@@ -1,6 +1,5 @@
 using FarmManagerAPI.Data;
 using FarmManagerAPI.Models;
-using FarmManagerAPI.Profiles;
 using FarmManagerAPI.Repositories.Implementations;
 using FarmManagerAPI.Repositories.Interfaces;
 using FarmManagerAPI.Services.Implementations;
@@ -48,7 +47,6 @@ builder.Services.AddSwaggerGen(c =>
         new List<string>()
     }});
 });
-builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Register repositories
 builder.Services.AddScoped<IFarmRepository, FarmRepository>();

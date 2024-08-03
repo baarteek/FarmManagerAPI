@@ -1,27 +1,26 @@
-﻿using AutoMapper;
-using FarmManagerAPI.DTOs;
+﻿using FarmManagerAPI.DTOs;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Threading.Tasks;
 
 namespace FarmManagerAPI.Services.Implementations
 {
     public class UserService : IUserService
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly IMapper mapper;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public UserService(UserManager<IdentityUser> userManager, IMapper mapper)
+        public UserService(UserManager<IdentityUser> userManager)
         {
-            this.userManager = userManager;
-            this.mapper = mapper;
+            _userManager = userManager;
         }
 
         public async Task DeleteUser(Guid id)
         {
-            var user = await userManager.FindByIdAsync(id.ToString());
+            var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null) return;
 
-            var result = await userManager.DeleteAsync(user);
+            var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException("Could not delete user");
@@ -30,25 +29,39 @@ namespace FarmManagerAPI.Services.Implementations
 
         public async Task<UserDTO> GetUserByEmail(string email)
         {
-            var user = await userManager.FindByEmailAsync(email);
-            return mapper.Map<UserDTO>(user);
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null) return null;
+
+            return new UserDTO
+            {
+                Id = Guid.Parse(user.Id),
+                UserName = user.UserName,
+                Email = user.Email
+            };
         }
 
         public async Task<UserDTO> GetUserById(Guid id)
         {
-            var user = await userManager.FindByIdAsync(id.ToString());
-            return mapper.Map<UserDTO>(user);
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null) return null;
+
+            return new UserDTO
+            {
+                Id = Guid.Parse(user.Id),
+                UserName = user.UserName,
+                Email = user.Email
+            };
         }
 
         public async Task UpdateUser(Guid id, UserEditDTO userEditDto)
         {
-            var user = await userManager.FindByIdAsync(id.ToString());
+            var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null) return;
 
             user.Email = userEditDto.Email;
             user.UserName = userEditDto.UserName;
 
-            var result = await userManager.UpdateAsync(user);
+            var result = await _userManager.UpdateAsync(user);
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException("Could not update user");
