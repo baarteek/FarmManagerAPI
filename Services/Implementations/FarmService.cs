@@ -48,7 +48,7 @@ namespace FarmManagerAPI.Services.Implementations
             var farm = await _farmRepository.GetById(id);
             if (farm == null)
             {
-                return null;
+                throw new Exception($"Farm not found with ID: {id}");
             }
 
             if (farm.User == null)

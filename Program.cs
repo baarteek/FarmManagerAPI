@@ -49,16 +49,19 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Register repositories
-builder.Services.AddScoped<IFarmRepository, FarmRepository>();
 builder.Services.AddScoped<IGenericRepository<Farm>, GenericRepository<Farm>>();
+builder.Services.AddScoped<IFarmRepository, FarmRepository>();
+builder.Services.AddScoped<IFarmRepository, FarmRepository>();
+builder.Services.AddScoped<IFieldRepository, FieldRepository>();
 
 // Register services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFarmService, FarmService>();
+builder.Services.AddScoped<IFieldService, FieldService>();
 
 // Configure database context
 builder.Services.AddDbContext<FarmContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Scoped);
 
 // Add Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
