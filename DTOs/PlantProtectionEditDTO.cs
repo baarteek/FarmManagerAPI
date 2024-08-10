@@ -4,7 +4,6 @@ namespace FarmManagerAPI.DTOs
 {
     public class PlantProtectionEditDTO
     {
-        public Guid Id { get; set; }
         public Guid CropId { get; set; }
         public DateTime Date { get; set; }
         public PlantProtectionType Type { get; set; }
