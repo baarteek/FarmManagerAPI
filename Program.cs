@@ -54,12 +54,14 @@ builder.Services.AddScoped<IFarmRepository, FarmRepository>();
 builder.Services.AddScoped<IFarmRepository, FarmRepository>();
 builder.Services.AddScoped<IFieldRepository, FieldRepository>();
 builder.Services.AddScoped<ICropRepository, CropRepository>();
+builder.Services.AddScoped<IReferenceParcelRepository, ReferenceParcelRepository>();
 
 // Register services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFarmService, FarmService>();
 builder.Services.AddScoped<IFieldService, FieldService>();
 builder.Services.AddScoped<ICropService, CropService>();
+builder.Services.AddScoped<IReferenceParcelService, ReferenceParcelService>();
 
 // Configure database context
 builder.Services.AddDbContext<FarmContext>(options =>

@@ -52,7 +52,7 @@ namespace FarmManagerAPI.Controllers
             }
         }
 
-        [HttpGet("byFarm/{farmId}")]
+        [HttpGet("farm/{farmId}")]
         public async Task<ActionResult<IEnumerable<FieldDTO>>> GetFieldsByFarmId(Guid farmId)
         {
             var fields = await _fieldService.GetFieldsByFarmId(farmId);
