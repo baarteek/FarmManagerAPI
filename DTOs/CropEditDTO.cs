@@ -4,7 +4,6 @@ namespace FarmManagerAPI.DTOs
 {
     public class CropEditDTO
     {
-        public Guid Id { get; set; }
         public Guid FieldId { get; set; }
         public string Name { get; set; }
         public CropType Type { get; set; }

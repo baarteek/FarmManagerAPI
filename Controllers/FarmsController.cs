@@ -58,7 +58,7 @@ namespace FarmManagerAPI.Controllers
                 return CreatedAtAction(nameof(GetFarm), new { id = farm.Id }, new FarmDTO
                 {
                     Id = farm.Id,
-                    User = new MiniItemDTO { Id = farm.User.Id, Name = farm.User.UserName },
+                    User = new MiniItemDTO { Id = farm.User.Id, Name = farm.User.Name },
                     Name = farm.Name,
                     Location = farm.Location,
                     TotalArea = farm.TotalArea,

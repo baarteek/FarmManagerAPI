@@ -8,35 +8,102 @@ namespace FarmManagerAPI.Services.Implementations
     public class CropService : ICropService
     {
         private readonly ICropRepository _cropRepository;
+        private readonly IFieldRepository _fieldRepository;
 
-        public CropService(ICropRepository cropRepository)
+        public CropService(ICropRepository cropRepository, IFieldRepository fieldRepository)
         {
             _cropRepository = cropRepository;
+            _fieldRepository = fieldRepository;
         }
 
-        public Task<Crop> AddCrop(CropEditDTO cropEditDTO)
+        public async Task<CropDTO> AddCrop(CropEditDTO cropEditDTO)
         {
-            throw new NotImplementedException();
+            var field = await _fieldRepository.GetById(cropEditDTO.FieldId);
+            if(field == null)
+            {
+                throw new Exception($"Field not found with ID: {cropEditDTO.FieldId}");
+            }
+
+            var crop = new Crop
+            {
+                Id = Guid.NewGuid(),
+                Field = field,
+                Name = cropEditDTO.Name,
+                Type = cropEditDTO.Type,
+                SowingDate = cropEditDTO.SowingDate,
+                HarvestDate = cropEditDTO.HarvestDate,
+                IsActive = cropEditDTO.IsActive,
+            };
+
+            await _cropRepository.Add(crop);
+
+            return new CropDTO
+            {
+                Id = crop.Id,
+                Field = new MiniItemDTO { Id = crop.Field.Id.ToString(), Name = crop.Field.Name },
+                Name = crop.Name,
+                Type = crop.Type,
+                SowingDate = crop.SowingDate,
+                HarvestDate = crop.HarvestDate,
+                IsActive= crop.IsActive,
+            };
         }
 
-        public Task DeleteCrop(Guid id)
+        public async Task DeleteCrop(Guid id)
         {
-            throw new NotImplementedException();
+            await _cropRepository.Delete(id);
         }
 
-        public Task<CropDTO> GetCropById(Guid id)
+        public async Task<CropDTO> GetCropById(Guid id)
         {
-            throw new NotImplementedException();
+            var crop = await _cropRepository.GetById(id);
+            if (crop == null)
+            {
+                throw new Exception($"Crop not found with ID: {crop.Field.Id}");
+            }
+
+            return new CropDTO
+            {
+                Id = crop.Id,
+                Field = new MiniItemDTO { Id = crop.Field.Id.ToString(), Name = crop.Field.Name },
+                Name = crop.Name,
+                Type = crop.Type,
+                SowingDate = crop.SowingDate,
+                HarvestDate = crop.HarvestDate,
+                IsActive = crop.IsActive
+            };
         }
 
-        public Task<IEnumerable<CropDTO>> GetCropsByFieldId(Guid fieldId)
+        public async Task<IEnumerable<CropDTO>> GetCropsByFieldId(Guid fieldId)
         {
-            throw new NotImplementedException();
+            var crops = await _cropRepository.GetCropsByFieldId(fieldId);
+            return crops.Select(crop => new CropDTO
+            {
+                Id = crop.Id,
+                Field = new MiniItemDTO { Id = crop.Field.Id.ToString(), Name = crop.Field.Name },
+                Name = crop.Name,
+                Type = crop.Type,
+                SowingDate = crop.SowingDate,
+                HarvestDate = crop.HarvestDate,
+                IsActive = crop.IsActive
+            }).ToList();
         }
 
-        public Task UdpateCrop(CropEditDTO cropEditDTO)
+        public async Task UdpateCrop(Guid id, CropEditDTO cropEditDTO)
         {
-            throw new NotImplementedException();
+            var crop = await _cropRepository.GetById(id);
+            if (crop == null)
+            {
+                throw new Exception($"Crop not found with ID: {crop.Field.Id}");
+            }
+
+            crop.Name = cropEditDTO.Name;
+            crop.Type = cropEditDTO.Type;
+            crop.SowingDate = cropEditDTO.SowingDate;
+            crop.HarvestDate = cropEditDTO.HarvestDate;
+            crop.IsActive = cropEditDTO.IsActive;
+
+            await _cropRepository.Update(crop);
         }
     }
 }

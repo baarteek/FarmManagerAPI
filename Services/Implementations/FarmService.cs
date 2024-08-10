@@ -17,7 +17,7 @@ namespace FarmManagerAPI.Services.Implementations
             _userManager = userManager;
         }
 
-        public async Task<Farm> AddFarm(FarmEditDTO farmEditDto, string userName)
+        public async Task<FarmDTO> AddFarm(FarmEditDTO farmEditDto, string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null)
@@ -35,7 +35,16 @@ namespace FarmManagerAPI.Services.Implementations
             };
 
             await _farmRepository.Add(farm);
-            return farm;
+
+            return new FarmDTO
+            {
+                Id = farm.Id,
+                User = new MiniItemDTO { Id = farm.User.Id, Name = farm.User.UserName },
+                Name = farmEditDto.Name,
+                Location = farm.Location,
+                TotalArea = farm.TotalArea,
+                Fields = farm.Fields.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Name }).ToList()
+            };
         }
 
         public async Task DeleteFarm(Guid id)

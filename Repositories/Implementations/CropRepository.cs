@@ -1,16 +1,32 @@
 ﻿using FarmManagerAPI.Data;
 using FarmManagerAPI.Models;
 using FarmManagerAPI.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace FarmManagerAPI.Repositories.Implementations
 {
     public class CropRepository : GenericRepository<Crop>, ICropRepository
     {
-        private readonly FarmContext context;
+        private readonly FarmContext _context;
 
         public CropRepository(FarmContext context) : base(context)
         {
-            this.context = context;
+            _context = context;
+        }
+
+        public async Task<IEnumerable<Crop>> GetCropsByFieldId(Guid fieldId)
+        {
+            return await _context.Crops
+                .Include(c => c.Field)
+                .Where(c => c.Field.Id == fieldId)
+                .ToListAsync();
+        }
+
+        public override async Task<Crop> GetById(Guid id)
+        {
+            return await _context.Crops
+                .Include(c => c.Field)
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
     }
 }
