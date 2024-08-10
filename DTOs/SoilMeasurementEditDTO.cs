@@ -2,7 +2,6 @@
 {
     public class SoilMeasurementEditDTO
     {
-        public Guid Id { get; set; }
         public Guid FieldId { get; set; }
         public DateTime Date { get; set; }
         public double? pH { get; set; }
