@@ -13,11 +13,17 @@ namespace FarmManagerAPI.Services.Implementations
     {
         private readonly IFieldRepository _fieldRepository;
         private readonly IFarmRepository _farmRepository;
+        private readonly IReferenceParcelRepository _referenceParcelRepository;
+        private readonly ISoilMeasurementRepository _soilMeasurementRepository;
+        private readonly ICropRepository _cropRepository;
 
-        public FieldService(IFieldRepository fieldRepository, IFarmRepository farmRepository)
+        public FieldService(IFieldRepository fieldRepository, IFarmRepository farmRepository, IReferenceParcelRepository referenceParcelRepository, ISoilMeasurementRepository soilMeasurementRepository, ICropRepository cropRepository)
         {
             _fieldRepository = fieldRepository;
             _farmRepository = farmRepository;
+            _referenceParcelRepository = referenceParcelRepository;
+            _soilMeasurementRepository = soilMeasurementRepository;
+            _cropRepository = cropRepository;
         }
 
         public async Task<FieldDTO> AddField(FieldEditDTO fieldEditDto)
@@ -76,6 +82,10 @@ namespace FarmManagerAPI.Services.Implementations
                 throw new Exception("Farm reference is missing for the field");
             }
 
+            field.ReferenceParcels = (await _referenceParcelRepository.GetParcelsByFieldId(field.Id)).ToList();
+            field.SoilMeasurements = (await _soilMeasurementRepository.GetSoilMeasurementsByFieldId(field.Id)).ToList();
+            field.Crops = (await _cropRepository.GetCropsByFieldId(field.Id)).ToList();
+
             return new FieldDTO
             {
                 Id = field.Id,
@@ -92,6 +102,15 @@ namespace FarmManagerAPI.Services.Implementations
         public async Task<IEnumerable<FieldDTO>> GetFieldsByFarmId(Guid farmId)
         {
             var fields = await _fieldRepository.GetFieldsByFarmId(farmId);
+
+            foreach(var field in fields)
+            {
+                field.ReferenceParcels = (await _referenceParcelRepository.GetParcelsByFieldId(field.Id)).ToList();
+                field.SoilMeasurements = (await _soilMeasurementRepository.GetSoilMeasurementsByFieldId(field.Id)).ToList();
+                field.Crops = (await _cropRepository.GetCropsByFieldId(field.Id)).ToList();
+
+            }
+
             return fields.Select(field => new FieldDTO
             {
                 Id = field.Id,

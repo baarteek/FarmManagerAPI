@@ -9,11 +9,15 @@ namespace FarmManagerAPI.Services.Implementations
     {
         private readonly ICropRepository _cropRepository;
         private readonly IFieldRepository _fieldRepository;
+        private readonly IFertilizationRepository _fertilizationRepository;
+        private readonly IPlantProtectionRepository _plantProtectionRepository;
 
-        public CropService(ICropRepository cropRepository, IFieldRepository fieldRepository)
+        public CropService(ICropRepository cropRepository, IFieldRepository fieldRepository, IFertilizationRepository fertilizationRepository, IPlantProtectionRepository plantProtectionRepository)
         {
             _cropRepository = cropRepository;
             _fieldRepository = fieldRepository;
+            _fertilizationRepository = fertilizationRepository;
+            _plantProtectionRepository = plantProtectionRepository;
         }
 
         public async Task<CropDTO> AddCrop(CropEditDTO cropEditDTO)
@@ -62,6 +66,9 @@ namespace FarmManagerAPI.Services.Implementations
                 throw new Exception($"Crop not found with ID: {crop.Field.Id}");
             }
 
+            crop.Fertilizations = (await _fertilizationRepository.GetFertilizationsByCropId(id)).ToList();
+            crop.PlantProtections = (await _plantProtectionRepository.GetPlantProtectionsByCropId(id)).ToList();
+
             return new CropDTO
             {
                 Id = crop.Id,
@@ -70,13 +77,22 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = crop.Type,
                 SowingDate = crop.SowingDate,
                 HarvestDate = crop.HarvestDate,
-                IsActive = crop.IsActive
+                IsActive = crop.IsActive,
+                Fertilizations = crop.Fertilizations?.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Type.ToString() }).ToList(),
+                PlantProtections = crop.PlantProtections?.Select(pp => new MiniItemDTO { Id = pp.Id.ToString(), Name = pp.Type.ToString() }).ToList()
             };
         }
 
         public async Task<IEnumerable<CropDTO>> GetCropsByFieldId(Guid fieldId)
         {
             var crops = await _cropRepository.GetCropsByFieldId(fieldId);
+
+            foreach (var crop in crops)
+            {
+                crop.Fertilizations = (await _fertilizationRepository.GetFertilizationsByCropId(crop.Id)).ToList();
+                crop.PlantProtections = (await _plantProtectionRepository.GetPlantProtectionsByCropId(crop.Id)).ToList();
+            }
+
             return crops.Select(crop => new CropDTO
             {
                 Id = crop.Id,
@@ -85,7 +101,9 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = crop.Type,
                 SowingDate = crop.SowingDate,
                 HarvestDate = crop.HarvestDate,
-                IsActive = crop.IsActive
+                IsActive = crop.IsActive,
+                Fertilizations = crop.Fertilizations?.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Type.ToString() }).ToList(),
+                PlantProtections = crop.PlantProtections?.Select(pp => new MiniItemDTO { Id = pp.Id.ToString(), Name = pp.Type.ToString() }).ToList()
             }).ToList();
         }
 

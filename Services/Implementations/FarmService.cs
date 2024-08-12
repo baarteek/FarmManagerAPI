@@ -10,11 +10,13 @@ namespace FarmManagerAPI.Services.Implementations
     {
         private readonly IFarmRepository _farmRepository;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IFieldRepository _fieldRepository;
 
-        public FarmService(IFarmRepository farmRepository, UserManager<IdentityUser> userManager)
+        public FarmService(IFarmRepository farmRepository, UserManager<IdentityUser> userManager, IFieldRepository fieldRepository)
         {
             _farmRepository = farmRepository;
             _userManager = userManager;
+            _fieldRepository = fieldRepository;
         }
 
         public async Task<FarmDTO> AddFarm(FarmEditDTO farmEditDto, string userName)
@@ -71,6 +73,8 @@ namespace FarmManagerAPI.Services.Implementations
                 throw new Exception($"User not found with ID: {farm.User.Id}");
             }
 
+            farm.Fields = (await _fieldRepository.GetFieldsByFarmId(farm.Id)).ToList();
+
             return new FarmDTO
             {
                 Id = farm.Id,
@@ -91,6 +95,12 @@ namespace FarmManagerAPI.Services.Implementations
             }
 
             var farms = await _farmRepository.GetFarmsByUser(user.Id);
+
+            foreach(var farm in farms)
+            {
+                farm.Fields = (await _fieldRepository.GetFieldsByFarmId(farm.Id)).ToList();
+            }
+
             return farms.Select(farm => new FarmDTO
             {
                 Id = farm.Id,
