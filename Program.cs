@@ -66,7 +66,7 @@ builder.Services.AddScoped<IFieldService, FieldService>();
 builder.Services.AddScoped<ICropService, CropService>();
 builder.Services.AddScoped<IReferenceParcelService, ReferenceParcelService>();
 builder.Services.AddScoped<IFertilizationService, FertilizationService>();
-builder.Services.AddScoped<IPlantProtectionService,  PlantProtectionService>();
+builder.Services.AddScoped<IPlantProtectionService, PlantProtectionService>();
 builder.Services.AddScoped<ISoilMeasurementService, SoilMeasurementService>();
 
 // Configure database context
@@ -102,6 +102,17 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+// Add CORS configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactNativeApp", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -115,6 +126,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowReactNativeApp");
 
 app.UseAuthentication();
 
