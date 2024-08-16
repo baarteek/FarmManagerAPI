@@ -45,7 +45,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Name = farmEditDto.Name,
                 Location = farm.Location,
                 TotalArea = farm.TotalArea,
-                Fields = farm.Fields.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Name }).ToList()
+                Fields = new List<MiniItemDTO>()
             };
         }
 
