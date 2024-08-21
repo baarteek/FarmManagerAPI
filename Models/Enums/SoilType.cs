@@ -2,7 +2,7 @@
 {
     public enum SoilType
     {
-        BrownEarth,
+        Brown,
         Chernozem,
         Podzol,
         Luvisol,

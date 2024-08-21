@@ -51,7 +51,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Farm = new MiniItemDTO { Id = field.Farm.Id.ToString(), Name = field.Farm.Name },
                 Name = field.Name,
                 Area = field.Area,
-                SoilType = field.SoilType,
+                SoilType = field.SoilType.ToString(),
                 ReferenceParcels = field.ReferenceParcels?.Select(rp => new MiniItemDTO { Id = rp.Id.ToString(), Name = rp.ParcelNumber }).ToList(),
                 SoilMeasurements = field.SoilMeasurements?.Select(sm => new MiniItemDTO { Id = sm.Id.ToString(), Name = sm.Date.ToString("yyyy-MM-dd") }).ToList(),
                 Crops = field.Crops?.Select(c => new MiniItemDTO { Id = c.Id.ToString(), Name = c.Name }).ToList()
@@ -92,7 +92,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Farm = new MiniItemDTO { Id = field.Farm.Id.ToString(), Name = field.Farm.Name },
                 Name = field.Name,
                 Area = field.Area,
-                SoilType = field.SoilType,
+                SoilType = field.SoilType.ToString(),
                 ReferenceParcels = field.ReferenceParcels?.Select(rp => new MiniItemDTO { Id = rp.Id.ToString(), Name = rp.ParcelNumber }).ToList(),
                 SoilMeasurements = field.SoilMeasurements?.Select(sm => new MiniItemDTO { Id = sm.Id.ToString(), Name = sm.Date.ToString("yyyy-MM-dd") }).ToList(),
                 Crops = field.Crops?.Select(c => new MiniItemDTO { Id = c.Id.ToString(), Name = c.Name }).ToList()
@@ -117,7 +117,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Farm = new MiniItemDTO { Id = field.Farm.Id.ToString(), Name = field.Farm.Name },
                 Name = field.Name,
                 Area = field.Area,
-                SoilType = field.SoilType,
+                SoilType = field.SoilType.ToString(),
                 ReferenceParcels = field.ReferenceParcels?.Select(rp => new MiniItemDTO { Id = rp.Id.ToString(), Name = rp.ParcelNumber }).ToList(),
                 SoilMeasurements = field.SoilMeasurements?.Select(sm => new MiniItemDTO { Id = sm.Id.ToString(), Name = sm.Date.ToString("yyyy-MM-dd") }).ToList(),
                 Crops = field.Crops?.Select(c => new MiniItemDTO { Id = c.Id.ToString(), Name = c.Name }).ToList()
@@ -151,7 +151,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Farm = new MiniItemDTO { Id = field.Farm.Id.ToString(), Name = field.Farm.Name },
                 Name = field.Name,
                 Area = field.Area,
-                SoilType = field.SoilType,
+                SoilType = field.SoilType.ToString(),
                 ReferenceParcels = field.ReferenceParcels?.Select(rp => new MiniItemDTO { Id = rp.Id.ToString(), Name = rp.ParcelNumber }).ToList(),
                 SoilMeasurements = field.SoilMeasurements?.Select(sm => new MiniItemDTO { Id = sm.Id.ToString(), Name = sm.Date.ToString("yyyy-MM-dd") }).ToList(),
                 Crops = field.Crops?.Select(c => new MiniItemDTO { Id = c.Id.ToString(), Name = c.Name }).ToList()
