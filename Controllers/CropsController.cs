@@ -39,6 +39,26 @@ namespace FarmManagerAPI.Controllers
             }
         }
 
+        [HttpGet("user/active")]
+        public async Task<ActionResult<IEnumerable<CropDTO>>> GetActiveCropsByUser()
+        {
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if(userName == null)
+            {
+                return Unauthorized("User ID not found in token.");
+            }
+
+            try
+            {
+                var crops = await _cropService.GetActiveCropsByUser(userName);
+                return Ok(crops);
+            }
+            catch(Exception ex)
+            {
+                return NotFound(new { message = ex.Message});
+            }
+        }
+
         [HttpGet("user")]
         public async Task<ActionResult<IEnumerable<CropDTO>>> GetCropsByUser()
         {
@@ -47,8 +67,16 @@ namespace FarmManagerAPI.Controllers
             {
                 return Unauthorized("User ID not found in token.");
             }
-            var crops = await _cropService.GetCropsByUser(userName);
-            return Ok(crops);
+
+            try
+            {
+                var crops = await _cropService.GetCropsByUser(userName);
+                return Ok(crops);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
 
         [HttpGet("field/{fieldId}")]

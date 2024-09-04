@@ -110,6 +110,36 @@ namespace FarmManagerAPI.Services.Implementations
             }).ToList();
         }
 
+        public async Task<IEnumerable<CropDTO>> GetActiveCropsByUser(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if(user == null)
+            {
+                throw new Exception($"User not found with username: {userName}");
+            }
+
+            var crops = await _cropRepository.GetActiveCropsByUserId(user.Id);
+
+            foreach (var crop in crops)
+            {
+                crop.Fertilizations = (await _fertilizationRepository.GetFertilizationsByCropId(crop.Id)).ToList();
+                crop.PlantProtections = (await _plantProtectionRepository.GetPlantProtectionsByCropId(crop.Id)).ToList();
+            }
+
+            return crops.Select(crop => new CropDTO
+            {
+                Id = crop.Id,
+                Field = new MiniItemDTO { Id = crop.Field.Id.ToString(), Name = crop.Name },
+                Name = crop.Name,
+                Type = crop.Type,
+                SowingDate = crop.SowingDate,
+                HarvestDate = crop.HarvestDate,
+                IsActive = crop.IsActive,
+                Fertilizations = crop.Fertilizations?.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Type.ToString() }).ToList(),
+                PlantProtections = crop.PlantProtections?.Select(pp => new MiniItemDTO { Id = pp.Id.ToString(), Name = pp.Type.ToString() }).ToList()
+            });
+        }
+
         public async Task<IEnumerable<CropDTO>> GetCropsByUser(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);

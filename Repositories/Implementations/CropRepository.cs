@@ -36,5 +36,14 @@ namespace FarmManagerAPI.Repositories.Implementations
                 .Where(c => c.Field.Farm.User.Id == userId)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Crop>> GetActiveCropsByUserId(string userId)
+        {
+            return await _context.Crops
+                .Include(c => c.Field.Farm.User)
+                .Where(c => c.Field.Farm.User.Id == userId)
+                .Where(c => c.IsActive)
+                .ToListAsync();
+        }
     }
 }
