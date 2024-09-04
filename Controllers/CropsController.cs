@@ -2,6 +2,7 @@
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace FarmManagerAPI.Controllers
 {
@@ -36,6 +37,18 @@ namespace FarmManagerAPI.Controllers
             {
                 return NotFound(new { message = ex.Message });
             }
+        }
+
+        [HttpGet("user")]
+        public async Task<ActionResult<IEnumerable<CropDTO>>> GetCropsByUser()
+        {
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if(userName == null)
+            {
+                return Unauthorized("User ID not found in token.");
+            }
+            var crops = await _cropService.GetCropsByUser(userName);
+            return Ok(crops);
         }
 
         [HttpGet("field/{fieldId}")]

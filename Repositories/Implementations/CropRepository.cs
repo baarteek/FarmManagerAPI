@@ -28,5 +28,13 @@ namespace FarmManagerAPI.Repositories.Implementations
                 .Include(c => c.Field)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
+
+        public async Task<IEnumerable<Crop>> GetCropsByUserId(string userId)
+        {
+            return await _context.Crops
+                .Include(c => c.Field.Farm.User)
+                .Where(c => c.Field.Farm.User.Id == userId)
+                .ToListAsync();
+        }
     }
 }
