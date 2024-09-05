@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace FarmManagerAPI.Models.Enums.EnumsResponse
+namespace FarmManagerAPI.Models.Enums
 {
-    public class SoilTypeResponse
+    public class EnumResponse
     {
         public int Id { get; set; }
         public string Name { get; set; }

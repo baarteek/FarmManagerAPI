@@ -81,8 +81,8 @@ namespace FarmManagerAPI.Services.Implementations
                 SowingDate = crop.SowingDate,
                 HarvestDate = crop.HarvestDate,
                 IsActive = crop.IsActive,
-                Fertilizations = crop.Fertilizations?.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Type.ToString() }).ToList(),
-                PlantProtections = crop.PlantProtections?.Select(pp => new MiniItemDTO { Id = pp.Id.ToString(), Name = pp.Type.ToString() }).ToList()
+                Fertilizations = crop.Fertilizations?.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Date.ToString() }).ToList(),
+                PlantProtections = crop.PlantProtections?.Select(pp => new MiniItemDTO { Id = pp.Id.ToString(), Name = pp.Date.ToString() }).ToList()
             };
         }
 
@@ -105,8 +105,8 @@ namespace FarmManagerAPI.Services.Implementations
                 SowingDate = crop.SowingDate,
                 HarvestDate = crop.HarvestDate,
                 IsActive = crop.IsActive,
-                Fertilizations = crop.Fertilizations?.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Type.ToString() }).ToList(),
-                PlantProtections = crop.PlantProtections?.Select(pp => new MiniItemDTO { Id = pp.Id.ToString(), Name = pp.Type.ToString() }).ToList()
+                Fertilizations = crop.Fertilizations?.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Date.ToString() }).ToList(),
+                PlantProtections = crop.PlantProtections?.Select(pp => new MiniItemDTO { Id = pp.Id.ToString(), Name = pp.Date.ToString() }).ToList()
             }).ToList();
         }
 
@@ -129,14 +129,14 @@ namespace FarmManagerAPI.Services.Implementations
             return crops.Select(crop => new CropDTO
             {
                 Id = crop.Id,
-                Field = new MiniItemDTO { Id = crop.Field.Id.ToString(), Name = crop.Name },
+                Field = new MiniItemDTO { Id = crop.Field.Id.ToString(), Name = crop.Field.Name },
                 Name = crop.Name,
                 Type = crop.Type,
                 SowingDate = crop.SowingDate,
                 HarvestDate = crop.HarvestDate,
                 IsActive = crop.IsActive,
-                Fertilizations = crop.Fertilizations?.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Type.ToString() }).ToList(),
-                PlantProtections = crop.PlantProtections?.Select(pp => new MiniItemDTO { Id = pp.Id.ToString(), Name = pp.Type.ToString() }).ToList()
+                Fertilizations = crop.Fertilizations?.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Date.ToString() }).ToList(),
+                PlantProtections = crop.PlantProtections?.Select(pp => new MiniItemDTO { Id = pp.Id.ToString(), Name = pp.Date.ToString() }).ToList()
             });
         }
 
@@ -159,14 +159,14 @@ namespace FarmManagerAPI.Services.Implementations
             return crops.Select(crop => new CropDTO
             {
                 Id = crop.Id,
-                Field = new MiniItemDTO { Id = crop.Field.Id.ToString(), Name = crop.Name },
+                Field = new MiniItemDTO { Id = crop.Field.Id.ToString(), Name = crop.Field.Name },
                 Name = crop.Name,
                 Type = crop.Type,
                 SowingDate = crop.SowingDate,
                 HarvestDate = crop.HarvestDate,
                 IsActive = crop.IsActive,
-                Fertilizations = crop.Fertilizations?.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Type.ToString() }).ToList(),
-                PlantProtections = crop.PlantProtections?.Select(pp => new MiniItemDTO { Id = pp.Id.ToString(), Name = pp.Type.ToString() }).ToList()
+                Fertilizations = crop.Fertilizations?.Select(f => new MiniItemDTO { Id = f.Id.ToString(), Name = f.Date.ToString() }).ToList(),
+                PlantProtections = crop.PlantProtections?.Select(pp => new MiniItemDTO { Id = pp.Id.ToString(), Name = pp.Date.ToString() }).ToList()
             });
         }
 

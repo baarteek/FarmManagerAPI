@@ -1,12 +1,8 @@
 ﻿using FarmManagerAPI.DTOs;
 using FarmManagerAPI.Models.Enums;
-using FarmManagerAPI.Models.Enums.EnumsResponse;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace FarmManagerAPI.Controllers
 {
@@ -94,7 +90,7 @@ namespace FarmManagerAPI.Controllers
         {
             var values = Enum.GetValues(typeof(SoilType))
                              .Cast<SoilType>()
-                             .Select(e => new SoilTypeResponse { Id = (int)e, Name = e.ToString() })
+                             .Select(e => new EnumResponse { Id = (int)e, Name = e.ToString() })
                              .ToList();
 
             return Ok(values);

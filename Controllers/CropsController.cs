@@ -1,4 +1,5 @@
 ﻿using FarmManagerAPI.DTOs;
+using FarmManagerAPI.Models.Enums;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -112,6 +113,17 @@ namespace FarmManagerAPI.Controllers
             {
                 return NotFound(new { message = ex.Message });
             }
+        }
+
+        [HttpGet("/Crops/cropType")]
+        public IActionResult GetCropTypes()
+        {
+            var values = Enum.GetValues(typeof(CropType))
+                .Cast<CropType>()
+                .Select(e => new EnumResponse { Id = (int)e, Name = e.ToString() })
+                .ToList();
+
+            return Ok(values);
         }
     }
 }

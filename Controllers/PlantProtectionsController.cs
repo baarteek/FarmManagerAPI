@@ -1,4 +1,5 @@
 ﻿using FarmManagerAPI.DTOs;
+using FarmManagerAPI.Models.Enums;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -69,6 +70,17 @@ namespace FarmManagerAPI.Controllers
         {
             await _plantProtectionService.DeletePlantProtection(id);
             return NoContent();
+        }
+
+        [HttpGet("/PlantProtection/plantProtectionType")]
+        public IActionResult GetPlantProtectionTypes()
+        {
+            var values = Enum.GetValues(typeof(PlantProtectionType))
+                .Cast<PlantProtectionType>()
+                .Select(e => new EnumResponse { Id = (int)e, Name = e.ToString() })
+                .ToList();
+
+            return Ok(values);
         }
     }
 }
