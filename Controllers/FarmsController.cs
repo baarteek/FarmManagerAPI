@@ -44,6 +44,19 @@ namespace FarmManagerAPI.Controllers
             return Ok(farms);
         }
 
+        [HttpGet("user/list")]
+        public async Task<ActionResult<IEnumerable<MiniItemDTO>>> GetFarmsNamesAndIdByUser()
+        {
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if(userName == null)
+            {
+                return Unauthorized("User ID not found in token");
+            }
+
+            var farms = await _farmService.GetFarmsNamesAndIdByUser(userName);
+            return Ok(farms);
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddFarm(FarmEditDTO farmEditDto)
         {

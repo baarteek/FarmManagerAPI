@@ -112,6 +112,23 @@ namespace FarmManagerAPI.Services.Implementations
             });
         }
 
+        public async Task<IEnumerable<MiniItemDTO>> GetFarmsNamesAndIdByUser(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if(user == null)
+            {
+                throw new Exception($"User not found with username: {userName}");
+            }
+
+            var farms = await _farmRepository.GetFarmsByUser(user.Id);
+
+            return farms.Select(farm => new MiniItemDTO
+            {
+                Id = farm.Id.ToString(),
+                Name = farm.Name,
+            });
+        }
+
         public async Task UpdateFarm(Guid id, FarmEditDTO farmEditDto)
         {
             var farm = await _farmRepository.GetById(id);

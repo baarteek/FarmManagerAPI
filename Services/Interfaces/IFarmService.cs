@@ -9,5 +9,6 @@ namespace FarmManagerAPI.Services.Interfaces
         Task<FarmDTO> AddFarm(FarmEditDTO farmEditDto, string userId);
         Task UpdateFarm(Guid id, FarmEditDTO farmEditDto);
         Task DeleteFarm(Guid id);
+        Task<IEnumerable<MiniItemDTO>> GetFarmsNamesAndIdByUser(string userName);
     }
 }
