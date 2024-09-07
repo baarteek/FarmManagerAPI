@@ -72,7 +72,7 @@ namespace FarmManagerAPI.Controllers
             return NoContent();
         }
 
-        [HttpGet("/PlantProtection/plantProtectionType")]
+        [HttpGet("/PlantProtections/plantProtectionType")]
         public IActionResult GetPlantProtectionTypes()
         {
             var values = Enum.GetValues(typeof(PlantProtectionType))

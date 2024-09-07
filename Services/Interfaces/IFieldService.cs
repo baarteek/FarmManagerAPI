@@ -9,5 +9,6 @@ namespace FarmManagerAPI.Services.Interfaces
         Task<FieldDTO> AddField(FieldEditDTO fieldEditDto);
         Task<FieldDTO> UpdateField(Guid id, FieldEditDTO fieldEditDto);
         Task DeleteField(Guid id);
+        Task<IEnumerable<MiniItemDTO>> GetFieldsNamesAndId(Guid farmId);
     }
 }

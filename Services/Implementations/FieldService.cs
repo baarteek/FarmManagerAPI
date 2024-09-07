@@ -124,6 +124,17 @@ namespace FarmManagerAPI.Services.Implementations
             }).ToList();
         }
 
+        public async Task<IEnumerable<MiniItemDTO>> GetFieldsNamesAndId(Guid farmId)
+        {
+            var fields = await _fieldRepository.GetFieldsByFarmId(farmId);
+
+            return fields.Select(field => new MiniItemDTO
+            {
+                Id = field.Id.ToString(),
+                Name = field.Name
+            });
+        }
+
         public async Task<FieldDTO> UpdateField(Guid id, FieldEditDTO fieldEditDto)
         {
             var field = await _fieldRepository.GetById(id);

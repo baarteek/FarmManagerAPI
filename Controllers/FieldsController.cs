@@ -95,5 +95,19 @@ namespace FarmManagerAPI.Controllers
 
             return Ok(values);
         }
+
+        [HttpGet("/Fields/farm/List/{farmId}")]
+        public async Task<ActionResult> GetFieldsNameAndId(Guid farmId)
+        {
+            try
+            {
+                var fields = await _fieldService.GetFieldsNamesAndId(farmId);
+                return Ok(fields);
+            } 
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }
