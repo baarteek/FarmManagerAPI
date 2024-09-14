@@ -1,10 +1,12 @@
 ﻿using FarmManagerAPI.DTOs;
 using FarmManagerAPI.Models.Enums;
 using FarmManagerAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FarmManagerAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PlantProtectionsController : ControllerBase

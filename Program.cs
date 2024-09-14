@@ -68,6 +68,7 @@ builder.Services.AddScoped<IReferenceParcelService, ReferenceParcelService>();
 builder.Services.AddScoped<IFertilizationService, FertilizationService>();
 builder.Services.AddScoped<IPlantProtectionService, PlantProtectionService>();
 builder.Services.AddScoped<ISoilMeasurementService, SoilMeasurementService>();
+builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 
 // Configure database context
 builder.Services.AddDbContext<FarmContext>(options =>
