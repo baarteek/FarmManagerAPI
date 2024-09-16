@@ -28,5 +28,15 @@ namespace FarmManagerAPI.Repositories.Implementations
                 .Include(f => f.Farm)
                 .FirstOrDefaultAsync(f => f.Id == id);
         }
+
+        public async Task<string> GetCoordinatesByFieldId(Guid fieldId)
+        {
+            var field = await _context.Fields
+                .Where(f => f.Id == fieldId)
+                .Select(f => f.Coordinates)
+                .FirstOrDefaultAsync();
+            
+            return field ?? string.Empty;
+        }
     }
 }

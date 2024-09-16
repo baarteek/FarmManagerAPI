@@ -99,6 +99,12 @@ namespace FarmManagerAPI.Services.Implementations
             };
         }
 
+        public async Task<string> GetCoordinatesByFieldId(Guid fieldId)
+        {
+            var coordinates = await _fieldRepository.GetCoordinatesByFieldId(fieldId);
+            return coordinates;
+        }
+
         public async Task<IEnumerable<FieldDTO>> GetFieldsByFarmId(Guid farmId)
         {
             var fields = await _fieldRepository.GetFieldsByFarmId(farmId);

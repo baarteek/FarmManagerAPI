@@ -3,6 +3,7 @@ using FarmManagerAPI.Models.Enums;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FarmManagerAPI.Controllers
 {
@@ -43,6 +44,23 @@ namespace FarmManagerAPI.Controllers
                     return NotFound(new { message = "Field not found" });
                 }
                 return Ok(field);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+        
+        [HttpGet("coordinates/{fieldId}")]
+        public async Task<ActionResult> GetFarmsCoordinates(Guid fieldId) 
+        {
+            try
+            {
+                string coordinates = await _fieldService.GetCoordinatesByFieldId(fieldId);
+                if(coordinates.IsNullOrEmpty())
+                    return NoContent();
+                
+                return Ok(coordinates); 
             }
             catch (Exception ex)
             {
