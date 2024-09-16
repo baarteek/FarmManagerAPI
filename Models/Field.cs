@@ -9,6 +9,7 @@ namespace FarmManagerAPI.Models
         public string Name { get; set; }
         public double? Area { get; set; }
         public SoilType SoilType { get; set; }
+        public string Coordinates { get; set; }
         public ICollection<ReferenceParcel>? ReferenceParcels { get; set; }
         public ICollection<SoilMeasurement>? SoilMeasurements { get; set; }
         public ICollection<Crop>? Crops { get; set; }
