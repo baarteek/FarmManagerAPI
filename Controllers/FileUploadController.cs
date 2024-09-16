@@ -1,49 +1,50 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace FarmManagerAPI.Controllers;
-
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
-using Services.Interfaces;
-
-[Authorize]
-[Route("[controller]")]
-[ApiController]
-public class FileUploadController : ControllerBase
+namespace FarmManagerAPI.Controllers
 {
-    private readonly IFileUploadService _fileUploadService;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Threading.Tasks;
+    using Services.Interfaces;
 
-    public FileUploadController(IFileUploadService fileUploadService)
+    [Authorize]
+    [Route("[controller]")]
+    [ApiController]
+    public class FileUploadController : ControllerBase
     {
-        _fileUploadService = fileUploadService;
-    }
+        private readonly IFileUploadService _fileUploadService;
 
-    [HttpPost("uploadGMLFile")]
-    public async Task<IActionResult> UploadFile(IFormFile file)
-    {
-        if (file == null || file.Length == 0)
+        public FileUploadController(IFileUploadService fileUploadService)
         {
-            return BadRequest("No file provided or the file is empty.");
+            _fileUploadService = fileUploadService;
         }
 
-        try
+        [HttpPost("uploadGMLFile")]
+        public async Task<IActionResult> UploadFile(IFormFile file)
         {
-            var filePath = await _fileUploadService.SaveFileAsync(file);
-            var fileContent = await _fileUploadService.ReadFileContentAsync(filePath);
-            
-            Console.WriteLine($"Content of {file.FileName}:\n{fileContent}");
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("No file provided or the file is empty.");
+            }
 
-            return Ok(new { message = "File uploaded successfully", fileName = file.FileName });
-        }
-        catch (ArgumentException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Internal server error: {ex.Message}");
+            try
+            {
+                // Przetwarzanie pliku bez zapisywania na dysku
+                var fileContent = await _fileUploadService.ReadFileContentAsync(file);
+
+                Console.WriteLine($"Content of {file.FileName}:\n{fileContent}");
+
+                return Ok(new { message = "File uploaded and processed successfully", fileName = file.FileName });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }
