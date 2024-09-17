@@ -20,8 +20,8 @@ namespace FarmManagerAPI.Controllers
             _fileUploadService = fileUploadService;
         }
 
-        [HttpPost("uploadGMLFile")]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        [HttpPost("uploadGMLFile/{farmId}")]
+        public async Task<IActionResult> UploadFile(IFormFile file, Guid farmId)
         {
             if (file == null || file.Length == 0)
             {
@@ -30,8 +30,7 @@ namespace FarmManagerAPI.Controllers
 
             try
             {
-                // Przetwarzanie pliku bez zapisywania na dysku
-                var fileContent = await _fileUploadService.ReadFileContentAsync(file);
+                var fileContent = await _fileUploadService.ReadFileContentAsync(file, farmId);
 
                 Console.WriteLine($"Content of {file.FileName}:\n{fileContent}");
 

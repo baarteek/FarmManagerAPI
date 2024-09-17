@@ -13,6 +13,7 @@
         Loess,
         Clay,
         Sandy,
-        Other
+        Other,
+        NotSelected
     }
 }

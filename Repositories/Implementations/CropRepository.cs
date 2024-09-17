@@ -45,5 +45,14 @@ namespace FarmManagerAPI.Repositories.Implementations
                 .Where(c => c.IsActive)
                 .ToListAsync();
         }
+        
+        public async Task<Guid> GetCropIdByIdentifierAndFieldId(string cropIdentifier, Guid fieldId)
+        {
+            return await _context.Crops
+                .Include(c => c.Field.Farm.User)
+                .Where(c => c.CropIdentifier == cropIdentifier && c.Field.Id == fieldId)
+                .Select(c => c.Id)
+                .FirstOrDefaultAsync();
+        }
     }
 }

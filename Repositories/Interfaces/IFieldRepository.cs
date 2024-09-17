@@ -6,5 +6,6 @@ namespace FarmManagerAPI.Repositories.Interfaces
     {
         Task<IEnumerable<Field>> GetFieldsByFarmId(Guid farmId);
         Task<string> GetCoordinatesByFieldId(Guid fieldId);
+        Task<Guid> GetFieldIdByCoordinates(string coordinates);
     }
 }

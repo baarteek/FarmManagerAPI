@@ -38,5 +38,13 @@ namespace FarmManagerAPI.Repositories.Implementations
             
             return field ?? string.Empty;
         }
+        
+        public async Task<Guid> GetFieldIdByCoordinates(string coordinates)
+        {
+            return await _context.Fields
+                .Where(f => f.Coordinates == coordinates)
+                .Select(f => f.Id)
+                .FirstOrDefaultAsync();
+        }
     }
 }

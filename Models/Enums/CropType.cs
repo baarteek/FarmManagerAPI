@@ -14,6 +14,7 @@
         Spice,
         Medicinal,
         Ornamental,
-        Other
+        Other,
+        NotSelected
     }
 }
