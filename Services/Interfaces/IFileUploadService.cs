@@ -2,5 +2,5 @@ namespace FarmManagerAPI.Services.Interfaces;
 
 public interface IFileUploadService
 {
-    Task<string> ReadFileContentAsync(IFormFile file, Guid farmId);
+    Task ReadFileContent(IFormFile file, Guid farmId);
 }

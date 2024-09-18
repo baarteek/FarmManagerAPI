@@ -29,11 +29,8 @@ namespace FarmManagerAPI.Controllers
             }
 
             try
-            {
-                var fileContent = await _fileUploadService.ReadFileContentAsync(file, farmId);
-
-                Console.WriteLine($"Content of {file.FileName}:\n{fileContent}");
-
+            { 
+                await _fileUploadService.ReadFileContent(file, farmId);
                 return Ok(new { message = "File uploaded and processed successfully", fileName = file.FileName });
             }
             catch (ArgumentException ex)
