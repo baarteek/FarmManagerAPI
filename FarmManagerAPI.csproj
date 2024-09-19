@@ -20,8 +20,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.6.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UploadedFiles\" />
-  </ItemGroup>
-
 </Project>

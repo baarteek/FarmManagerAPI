@@ -1,6 +1,4 @@
-﻿using FarmManagerAPI.Models.Enums;
-
-namespace FarmManagerAPI.DTOs
+﻿namespace FarmManagerAPI.DTOs
 {
     public class FieldDTO
     {
