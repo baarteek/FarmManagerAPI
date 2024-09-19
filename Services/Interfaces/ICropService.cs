@@ -10,7 +10,7 @@ namespace FarmManagerAPI.Services.Interfaces
         Task<IEnumerable<CropDTO>> GetCropsByUser(string userName);
         Task<IEnumerable<CropDTO>> GetActiveCropsByUser(string userName);
         Task<CropDTO> AddCrop(CropEditDTO cropEditDTO);
-        Task UdpateCrop(Guid id, CropEditDTO cropEditDTO);
+        Task UpdateCrop(Guid id, CropEditDTO cropEditDTO);
         Task DeleteCrop(Guid id);
     }
 }

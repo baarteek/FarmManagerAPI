@@ -3,6 +3,7 @@ using FarmManagerAPI.Models;
 using FarmManagerAPI.Repositories.Interfaces;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FarmManagerAPI.Services.Implementations
 {
@@ -26,11 +27,24 @@ namespace FarmManagerAPI.Services.Implementations
         public async Task<CropDTO> AddCrop(CropEditDTO cropEditDTO)
         {
             var field = await _fieldRepository.GetById(cropEditDTO.FieldId);
-            if(field == null)
+            if (field == null)
             {
                 throw new Exception($"Field not found with ID: {cropEditDTO.FieldId}");
             }
-
+            
+            if (cropEditDTO.IsActive)
+            {
+                var activeCrops = await _cropRepository.GetCropsByFieldId(field.Id);
+                foreach (var activeCrop in activeCrops)
+                {
+                    if (activeCrop.IsActive)
+                    {
+                        activeCrop.IsActive = false;
+                        await _cropRepository.Update(activeCrop);
+                    }
+                }
+            }
+            
             var crop = new Crop
             {
                 Id = Guid.NewGuid(),
@@ -52,7 +66,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = crop.Type,
                 SowingDate = crop.SowingDate,
                 HarvestDate = crop.HarvestDate,
-                IsActive= crop.IsActive,
+                IsActive = crop.IsActive,
             };
         }
 
@@ -170,14 +184,27 @@ namespace FarmManagerAPI.Services.Implementations
             });
         }
 
-        public async Task UdpateCrop(Guid id, CropEditDTO cropEditDTO)
+        public async Task UpdateCrop(Guid id, CropEditDTO cropEditDTO)
         {
             var crop = await _cropRepository.GetById(id);
             if (crop == null)
             {
-                throw new Exception($"Crop not found with ID: {crop.Field.Id}");
+                throw new Exception($"Crop not found with ID: {id}");
             }
-
+            
+            if (cropEditDTO.IsActive && !crop.IsActive)
+            {
+                var activeCrops = await _cropRepository.GetCropsByFieldId(cropEditDTO.FieldId);
+                foreach (var activeCrop in activeCrops)
+                {
+                    if (activeCrop.IsActive)
+                    {
+                        activeCrop.IsActive = false;
+                        await _cropRepository.Update(activeCrop);
+                    }
+                }
+            }
+            
             crop.Name = cropEditDTO.Name;
             crop.Type = cropEditDTO.Type;
             crop.SowingDate = cropEditDTO.SowingDate;

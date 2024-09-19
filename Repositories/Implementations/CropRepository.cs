@@ -54,6 +54,14 @@ namespace FarmManagerAPI.Repositories.Implementations
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Crop>> GetActiveCropsByFieldId(Guid fieldId)
+        {
+            return await _context.Crops
+                .Include(c => c.Field)
+                .Where(c => c.Field.Id == fieldId && c.IsActive)
+                .ToListAsync();
+        }
+
         public async Task<Guid> GetCropIdByIdentifierAndFieldId(string cropIdentifier, Guid fieldId)
         {
             return await _context.Crops

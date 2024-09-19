@@ -92,7 +92,7 @@ namespace FarmManagerAPI.Controllers
         {
             try
             {
-                await _cropService.UdpateCrop(id, cropEditDto);
+                await _cropService.UpdateCrop(id, cropEditDto);
                 return NoContent();
             }
             catch (Exception ex)
