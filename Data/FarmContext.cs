@@ -16,5 +16,6 @@ namespace FarmManagerAPI.Data
         public DbSet<PlantProtection> PlantProtection { get; set; }
         public DbSet<ReferenceParcel> ReferenceParcels { get; set; }
         public DbSet<SoilMeasurement> SoilMeasurements { get; set; }
+        public DbSet<CultivationOperation> CultivationOperations { get; set; }
     }
 }

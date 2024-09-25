@@ -7,8 +7,6 @@ namespace FarmManagerAPI.DTOs
         public Guid FieldId { get; set; }
         public string Name { get; set; }
         public CropType Type { get; set; }
-        public DateTime? SowingDate { get; set; }
-        public DateTime? HarvestDate { get; set; }
         public bool IsActive { get; set; }
     }
 }

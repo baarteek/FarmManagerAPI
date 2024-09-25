@@ -97,7 +97,7 @@ namespace FarmManagerAPI.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound(new { message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 

@@ -22,7 +22,7 @@ public class MapDataService : IMapDataService
         var fields = (await _fieldRepository.GetFieldsByFarmId(farmId)).ToList();
         if (fields.IsNullOrEmpty())
         {
-            throw new Exception($"No fields found for farm {farmId}");
+            return new List<MapDataDTO>();
         }
 
         var mapDataList = new List<MapDataDTO>();

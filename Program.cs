@@ -58,6 +58,7 @@ builder.Services.AddScoped<IReferenceParcelRepository, ReferenceParcelRepository
 builder.Services.AddScoped<IFertilizationRepository, FertilizationRepository>();
 builder.Services.AddScoped<IPlantProtectionRepository, PlantProtectionRepository>();
 builder.Services.AddScoped<ISoilMeasurementRepository, SoilMeasurementRepository>();
+builder.Services.AddScoped<ICultivationOperationRepository, CultivationOperationRepository>();
 
 // Register services
 builder.Services.AddScoped<IUserService, UserService>();
@@ -70,6 +71,7 @@ builder.Services.AddScoped<IPlantProtectionService, PlantProtectionService>();
 builder.Services.AddScoped<ISoilMeasurementService, SoilMeasurementService>();
 builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 builder.Services.AddScoped<IMapDataService, MapDataService>();
+builder.Services.AddScoped<ICultivationOperationService, CultivationOperationService>();
 
 // Configure database context
 builder.Services.AddDbContext<FarmContext>(options =>
