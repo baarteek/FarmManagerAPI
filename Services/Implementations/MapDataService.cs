@@ -1,10 +1,9 @@
 using FarmManagerAPI.DTOs;
-using FarmManagerAPI.Models;
 using FarmManagerAPI.Repositories.Interfaces;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
-namespace FarmManagerAPI.Services.Implementations;
+namespace FarmManagerAPI.Services.Implementations; 
 
 public class MapDataService : IMapDataService
 {
