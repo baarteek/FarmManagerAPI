@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using FarmManagerAPI.DTOs;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -23,7 +24,30 @@ public class MapDataController : ControllerBase
     {
         try
         {
-            var mapData = await _mapDataService.GetMapData(farmId);
+            var mapData = await _mapDataService.GetMapDataByFarmId(farmId);
+            if (mapData.IsNullOrEmpty())
+            {
+                return NoContent();
+            }
+            return Ok(mapData);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet("user")]
+    public async Task<ActionResult<IEnumerable<MapDataDTO>>> GetUserMapData()
+    {
+        try
+        {
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userName == null)
+            {
+                return Unauthorized("User ID not found in token.");
+            }
+            var mapData = await _mapDataService.GetMapDataByUser(userName);
             if (mapData.IsNullOrEmpty())
             {
                 return NoContent();

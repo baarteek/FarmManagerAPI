@@ -22,6 +22,14 @@ namespace FarmManagerAPI.Repositories.Implementations
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Field>> GetFieldsByUser(string userId)
+        {
+            return await _context.Fields
+                .Include(f => f.Farm)
+                .Where(f => f.Farm.User.Id == userId)
+                .ToListAsync();
+        }
+
         public override async Task<Field> GetById(Guid id)
         {
             return await _context.Fields
