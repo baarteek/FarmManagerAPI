@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace FarmManagerAPI.Services.Implementations
 {
-    public class FileUploadService : IFileUploadService
+    public class GmlFileUploadService : IGmlFileUploadService
     {
         private readonly IFarmRepository _farmRepository;
         private readonly IFieldRepository _fieldRepository;
@@ -15,7 +15,7 @@ namespace FarmManagerAPI.Services.Implementations
 
         private const string GmlNamespace = "http://www.opengis.net/gml/3.2";
 
-        public FileUploadService(
+        public GmlFileUploadService(
             IFarmRepository farmRepository, 
             IFieldRepository fieldRepository, 
             ICropRepository cropRepository)

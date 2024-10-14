@@ -69,7 +69,8 @@ builder.Services.AddScoped<IReferenceParcelService, ReferenceParcelService>();
 builder.Services.AddScoped<IFertilizationService, FertilizationService>();
 builder.Services.AddScoped<IPlantProtectionService, PlantProtectionService>();
 builder.Services.AddScoped<ISoilMeasurementService, SoilMeasurementService>();
-builder.Services.AddScoped<IFileUploadService, FileUploadService>();
+builder.Services.AddScoped<IGmlFileUploadService, GmlFileUploadService>();
+builder.Services.AddScoped<ICsvFileUploadService, CsvFileUploadService>();
 builder.Services.AddScoped<IMapDataService, MapDataService>();
 builder.Services.AddScoped<ICultivationOperationService, CultivationOperationService>();
 

@@ -1,6 +1,6 @@
 namespace FarmManagerAPI.Services.Interfaces;
 
-public interface IFileUploadService
+public interface IGmlFileUploadService
 {
     Task ReadFileContent(IFormFile file, Guid farmId);
 }
