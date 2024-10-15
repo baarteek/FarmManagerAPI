@@ -22,6 +22,8 @@ obj/
 # Others
 *.DS_Store
 Thumbs.db
+.idea/
+config/
 
 # Avoid ignoring potentially important files in the appsettings files
 appsettings*.json
