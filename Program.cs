@@ -73,6 +73,7 @@ builder.Services.AddScoped<IGmlFileUploadService, GmlFileUploadService>();
 builder.Services.AddScoped<ICsvFileUploadService, CsvFileUploadService>();
 builder.Services.AddScoped<IMapDataService, MapDataService>();
 builder.Services.AddScoped<ICultivationOperationService, CultivationOperationService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 
 // Configure database context
 builder.Services.AddDbContext<FarmContext>(options =>
