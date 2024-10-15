@@ -28,5 +28,14 @@ namespace FarmManagerAPI.Repositories.Implementations
                 .Include(rp => rp.Field)
                 .FirstOrDefaultAsync(rp => rp.Id == id);
         }
+
+        public async Task<Guid> GetReferenceParcelByNumberAndFieldId(string number, Guid fieldId)
+        {
+            return await _context.ReferenceParcels
+                .Include(rp => rp.Field)
+                .Where(rp => rp.Field.Id == fieldId  && rp.ParcelNumber == number)
+                .Select(rp => rp.Id)
+                .FirstOrDefaultAsync();
+        }
     }
 }

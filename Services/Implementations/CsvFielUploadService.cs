@@ -3,11 +3,28 @@ using System.Globalization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using FarmManagerAPI.Services.Interfaces;
+using FarmManagerAPI.Repositories.Interfaces;
+using Microsoft.IdentityModel.Tokens;
+using FarmManagerAPI.DTOs;
+using FarmManagerAPI.Models;
 
 namespace FarmManagerAPI.Services.Implementations
 {
     public class CsvFileUploadService : ICsvFileUploadService
     {
+        private readonly IFarmRepository _farmRepository;
+        private readonly IFieldRepository _fieldRepository;
+        private readonly ICropRepository _cropRepository;
+        private readonly IReferenceParcelRepository _referenceParcelRepository;
+
+        public CsvFileUploadService(IFarmRepository farmRepository, IFieldRepository fieldRepository, ICropRepository cropRepository, IReferenceParcelRepository referenceParcelRepository)
+        {
+            _farmRepository = farmRepository;
+            _fieldRepository = fieldRepository;
+            _cropRepository = cropRepository;
+            _referenceParcelRepository = referenceParcelRepository;
+        }
+
         public async Task ReadFileContent(IFormFile file, Guid farmId)
         {
             ValidateFile(file);
@@ -27,14 +44,11 @@ namespace FarmManagerAPI.Services.Implementations
 
                     while (await csv.ReadAsync())
                     {
-                        var oznaczenieUprawy = csv.GetField("Oznaczenie Uprawy / działki rolnej");
-                        var nrDzialkiEwidencyjnej = csv.GetField("Nr działki ewidencyjnej");
-                        var powierzchnia = csv.GetField("Powierzchnia uprawy w granicach działki ewidencyjnej - ha");
+                        var cropIdentifier = csv.GetField("Oznaczenie Uprawy / działki rolnej");
+                        var parcelNumber = csv.GetField("Nr działki ewidencyjnej");
+                        var area = csv.GetField("Powierzchnia uprawy w granicach działki ewidencyjnej - ha");
 
-                        Console.WriteLine($"Oznaczenie Uprawy / działki rolnej: {oznaczenieUprawy}");
-                        Console.WriteLine($"Nr działki ewidencyjnej: {nrDzialkiEwidencyjnej}");
-                        Console.WriteLine($"Powierzchnia uprawy w granicach działki ewidencyjnej (ha): {powierzchnia}");
-                        Console.WriteLine("--------------------------------------------------");
+                       await AddReferenceParcelToField(cropIdentifier, parcelNumber, Double.Parse(area));
                     }
                 }
             }
@@ -50,6 +64,34 @@ namespace FarmManagerAPI.Services.Implementations
             if (Path.GetExtension(file.FileName).ToLower() != ".csv")
             {
                 throw new ArgumentException("Invalid file extension. Only .csv files are allowed.");
+            }
+        }
+
+        private async Task AddReferenceParcelToField(string cropIdentifier, string parcelNumber, double area)
+        {
+            if(cropIdentifier.IsNullOrEmpty() || parcelNumber.IsNullOrEmpty())
+            {
+                return;
+            }
+
+            var fieldId = await _cropRepository.GetFieldIdByCropIdentifier(cropIdentifier);
+            if(fieldId.Equals(Guid.Empty))
+            {
+                return; 
+            }
+
+            var referenceParcel = await _referenceParcelRepository.GetReferenceParcelByNumberAndFieldId(parcelNumber, fieldId);
+            if(referenceParcel.Equals(Guid.Empty))
+            {
+                var rp = new ReferenceParcel
+                {
+                    Id = Guid.NewGuid(),
+                    Field = await _fieldRepository.GetById(fieldId),
+                    ParcelNumber = parcelNumber,
+                    Area = area
+                };
+                await _referenceParcelRepository.Add(rp);
+                Console.WriteLine("Dodano numer dzialki");
             }
         }
     }
