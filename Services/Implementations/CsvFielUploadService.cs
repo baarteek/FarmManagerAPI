@@ -12,14 +12,12 @@ namespace FarmManagerAPI.Services.Implementations
 {
     public class CsvFileUploadService : ICsvFileUploadService
     {
-        private readonly IFarmRepository _farmRepository;
         private readonly IFieldRepository _fieldRepository;
         private readonly ICropRepository _cropRepository;
         private readonly IReferenceParcelRepository _referenceParcelRepository;
 
-        public CsvFileUploadService(IFarmRepository farmRepository, IFieldRepository fieldRepository, ICropRepository cropRepository, IReferenceParcelRepository referenceParcelRepository)
+        public CsvFileUploadService(IFieldRepository fieldRepository, ICropRepository cropRepository, IReferenceParcelRepository referenceParcelRepository)
         {
-            _farmRepository = farmRepository;
             _fieldRepository = fieldRepository;
             _cropRepository = cropRepository;
             _referenceParcelRepository = referenceParcelRepository;
@@ -47,8 +45,9 @@ namespace FarmManagerAPI.Services.Implementations
                         var cropIdentifier = csv.GetField("Oznaczenie Uprawy / działki rolnej");
                         var parcelNumber = csv.GetField("Nr działki ewidencyjnej");
                         var area = csv.GetField("Powierzchnia uprawy w granicach działki ewidencyjnej - ha");
+                        var parsedArea = Double.Parse(area, new CultureInfo("pl-PL"));
 
-                       await AddReferenceParcelToField(cropIdentifier, parcelNumber, Double.Parse(area));
+                        await AddReferenceParcelToField(cropIdentifier, parcelNumber, parsedArea);
                     }
                 }
             }
