@@ -30,6 +30,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = crop,
                 Date = fertilizationEditDto.Date,
                 Type = fertilizationEditDto.Type,
+                NameOfProduct = fertilizationEditDto.NameOfProduct,
                 Quantity = fertilizationEditDto.Quantity,
                 Method = fertilizationEditDto.Method,
                 Description = fertilizationEditDto.Description
@@ -43,6 +44,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = new MiniItemDTO { Id = fertilization.Crop.Id.ToString(), Name = fertilization.Crop.Name },
                 Date = fertilization.Date,
                 Type = fertilization.Type,
+                NameOfProduct = fertilization.NameOfProduct,
                 Quantity = fertilization.Quantity,
                 Method = fertilization.Method,
                 Description = fertilization.Description
@@ -68,6 +70,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = new MiniItemDTO { Id = fertilization.Crop.Id.ToString(), Name = fertilization.Crop.Name },
                 Date = fertilization.Date,
                 Type = fertilization.Type,
+                NameOfProduct = fertilization.NameOfProduct,
                 Quantity = fertilization.Quantity,
                 Method = fertilization.Method,
                 Description = fertilization.Description
@@ -83,6 +86,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = new MiniItemDTO { Id = fertilization.Crop.Id.ToString(), Name = fertilization.Crop.Name },
                 Date = fertilization.Date,
                 Type = fertilization.Type,
+                NameOfProduct = fertilization.NameOfProduct,
                 Quantity = fertilization.Quantity,
                 Method = fertilization.Method,
                 Description = fertilization.Description
@@ -106,6 +110,7 @@ namespace FarmManagerAPI.Services.Implementations
             fertilization.Crop = crop;
             fertilization.Date = fertilizationEditDto.Date;
             fertilization.Type = fertilizationEditDto.Type;
+            fertilization.NameOfProduct = fertilizationEditDto.NameOfProduct;
             fertilization.Quantity = fertilizationEditDto.Quantity;
             fertilization.Method = fertilizationEditDto.Method;
             fertilization.Description = fertilizationEditDto.Description;
@@ -118,6 +123,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = new MiniItemDTO { Id = fertilization.Crop.Id.ToString(), Name = fertilization.Crop.Name },
                 Date = fertilization.Date,
                 Type = fertilization.Type,
+                NameOfProduct = fertilization.NameOfProduct,
                 Quantity = fertilization.Quantity,
                 Method = fertilization.Method,
                 Description = fertilization.Description

@@ -61,10 +61,10 @@ namespace FarmManagerAPI.Services.Implementations
                                 PlotNumber = parcel.ParcelNumber,
                                 Date = operation.Date,
                                 Area = parcel.Area,
-                                TypeOfUse = "", // TODO
+                                TypeOfUse = crop.Name,
                                 TypeOfActivity = operation.Name,
-                                NameOfPlantProtectionProduct = null,
-                                AmountOfPlatnProtectionProduct = null,
+                                NameOfPlantProtectionProduct = "-",
+                                AmountOfPlatnProtectionProduct = "-",
                                 PackageNumber = "", // TODO
                                 Comments = operation.Description,
                             });
@@ -82,10 +82,10 @@ namespace FarmManagerAPI.Services.Implementations
                                 PlotNumber = parcel.ParcelNumber,
                                 Date = plantProtection.Date,
                                 Area = parcel.Area,
-                                TypeOfUse = "", // TODO
-                                TypeOfActivity = plantProtection.Type.ToString(),
-                                NameOfPlantProtectionProduct = "", // TODO
-                                AmountOfPlatnProtectionProduct = plantProtection.Quantity.ToString(),
+                                TypeOfUse = crop.Name,
+                                TypeOfActivity = "oprysk",
+                                NameOfPlantProtectionProduct = plantProtection.NameOfProduct,
+                                AmountOfPlatnProtectionProduct = plantProtection.Quantity.ToString() + " l/ha",
                                 PackageNumber = "", // TODO
                                 Comments = plantProtection.Description,
                             });
@@ -103,10 +103,10 @@ namespace FarmManagerAPI.Services.Implementations
                                 PlotNumber = parcel.ParcelNumber,
                                 Date = ferelization.Date,
                                 Area = parcel.Area,
-                                TypeOfUse = "", // TODO
-                                TypeOfActivity = ferelization.Type.ToString(),
-                                NameOfPlantProtectionProduct = "", // TODO
-                                AmountOfPlatnProtectionProduct = ferelization.Quantity.ToString(),
+                                TypeOfUse = crop.Name,
+                                TypeOfActivity = "nawożenie",
+                                NameOfPlantProtectionProduct = ferelization.NameOfProduct,
+                                AmountOfPlatnProtectionProduct = ferelization.Quantity.ToString() + " t/ha",
                                 PackageNumber = "", // TODO
                                 Comments = ferelization.Description
                             });
@@ -124,7 +124,7 @@ namespace FarmManagerAPI.Services.Implementations
 
             htmlBuilder.Append("<html><head><style>");
             htmlBuilder.Append("<title>Report</title> <style> table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid black; padding: 5px; text-align: center; vertical-align: middle; } </style> </head> <body>");
-            htmlBuilder.Append("<table> <tr> <th colspan=\"10\">WYKAZ DZIAŁAŃ AGROTECHNICZNYCH</th> </tr> <tr> <th>Oznaczenie działki (literowe)</th> <th>Numer działki ewidencyjnej</th> <th>Data wykonania czynności [dd/mm/rrrr]</th> <th>Powierzchnia działki/uprawy [ha,a]</th> <th>Rodzaj użytkowania (uprawa w plonie głównym/uprawa w poplonie)</th> <th>Rodzaj wykonywanej czynności</th> <th>Nazwa środka ochrony roślin</th> <th>Zastosowana ilość środka ochrony roślin/nawozu</th> <th>Działanie/interwencja/praktyka Nummer pakietu lub wariantu</th> <th>Uwagi/powierzchnia wykonywanej czynności</th> </tr> <tr> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td> <td>7</td> <td>8</td> <td>9</td> <td>10</td> </tr>");
+            htmlBuilder.Append("<table> <tr> <th colspan=\"10\">WYKAZ DZIAŁAŃ AGROTECHNICZNYCH</th> </tr> <tr> <th>Oznaczenie działki (literowe)</th> <th>Numer działki ewidencyjnej</th> <th>Data wykonania czynności [dd/mm/rrrr]</th> <th>Powierzchnia działki/uprawy [ha,a]</th> <th>Rodzaj użytkowania (uprawa w plonie głównym/uprawa w poplonie)</th> <th>Rodzaj wykonywanej czynności</th> <th>Nazwa środka ochrony roślin</th> <th>Zastosowana ilość środka ochrony roślin/nawozu</th> <th>Działanie/interwencja/praktyka Nummer pakietu lub wariantu</th> <th>Uwagi/powierzchnia wykonywanej czynności</th> </tr> <tr> <th>1</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th> <th>6</th> <th>7</th> <th>8</th> <th>9</th> <th>10</th> </tr>");
 
             foreach(var aa in agrtechnicalActivities)
             {

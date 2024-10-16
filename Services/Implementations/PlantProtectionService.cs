@@ -31,6 +31,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Date = plantProtectionEditDto.Date,
                 Type = plantProtectionEditDto.Type,
                 Quantity = plantProtectionEditDto.Quantity,
+                NameOfProduct = plantProtectionEditDto.NameOfProduct,
                 Method = plantProtectionEditDto.Method,
                 Description = plantProtectionEditDto.Description
             };
@@ -44,6 +45,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Date = plantProtection.Date,
                 Type = plantProtection.Type,
                 Quantity = plantProtection.Quantity,
+                NameOfProduct = plantProtection.NameOfProduct,
                 Method = plantProtection.Method,
                 Description = plantProtection.Description
             };
@@ -68,6 +70,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = new MiniItemDTO { Id = plantProtection.Crop.Id.ToString(), Name = plantProtection.Crop.Name },
                 Date = plantProtection.Date,
                 Type = plantProtection.Type,
+                NameOfProduct = plantProtection.NameOfProduct,
                 Quantity = plantProtection.Quantity,
                 Method = plantProtection.Method,
                 Description = plantProtection.Description
@@ -83,6 +86,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = new MiniItemDTO { Id = pp.Crop.Id.ToString(), Name = pp.Crop.Name },
                 Date = pp.Date,
                 Type = pp.Type,
+                NameOfProduct = pp.NameOfProduct,
                 Quantity = pp.Quantity,
                 Method = pp.Method,
                 Description = pp.Description
@@ -106,6 +110,7 @@ namespace FarmManagerAPI.Services.Implementations
             plantProtection.Crop = crop;
             plantProtection.Date = plantProtectionEditDto.Date;
             plantProtection.Type = plantProtectionEditDto.Type;
+            plantProtection.NameOfProduct = plantProtectionEditDto.NameOfProduct;
             plantProtection.Quantity = plantProtectionEditDto.Quantity;
             plantProtection.Method = plantProtectionEditDto.Method;
             plantProtection.Description = plantProtectionEditDto.Description;
@@ -118,6 +123,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = new MiniItemDTO { Id = plantProtection.Crop.Id.ToString(), Name = plantProtection.Crop.Name },
                 Date = plantProtection.Date,
                 Type = plantProtection.Type,
+                NameOfProduct = plantProtection.NameOfProduct,
                 Quantity = plantProtection.Quantity,
                 Method = plantProtection.Method,
                 Description = plantProtection.Description
