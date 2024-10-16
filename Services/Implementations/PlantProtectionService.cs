@@ -32,7 +32,6 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = plantProtectionEditDto.Type,
                 Quantity = plantProtectionEditDto.Quantity,
                 NameOfProduct = plantProtectionEditDto.NameOfProduct,
-                Method = plantProtectionEditDto.Method,
                 Description = plantProtectionEditDto.Description
             };
 
@@ -46,7 +45,6 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = plantProtection.Type,
                 Quantity = plantProtection.Quantity,
                 NameOfProduct = plantProtection.NameOfProduct,
-                Method = plantProtection.Method,
                 Description = plantProtection.Description
             };
         }
@@ -72,7 +70,6 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = plantProtection.Type,
                 NameOfProduct = plantProtection.NameOfProduct,
                 Quantity = plantProtection.Quantity,
-                Method = plantProtection.Method,
                 Description = plantProtection.Description
             };
         }
@@ -88,7 +85,6 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = pp.Type,
                 NameOfProduct = pp.NameOfProduct,
                 Quantity = pp.Quantity,
-                Method = pp.Method,
                 Description = pp.Description
             }).ToList();
         }
@@ -112,7 +108,6 @@ namespace FarmManagerAPI.Services.Implementations
             plantProtection.Type = plantProtectionEditDto.Type;
             plantProtection.NameOfProduct = plantProtectionEditDto.NameOfProduct;
             plantProtection.Quantity = plantProtectionEditDto.Quantity;
-            plantProtection.Method = plantProtectionEditDto.Method;
             plantProtection.Description = plantProtectionEditDto.Description;
 
             await _plantProtectionRepository.Update(plantProtection);
@@ -125,7 +120,6 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = plantProtection.Type,
                 NameOfProduct = plantProtection.NameOfProduct,
                 Quantity = plantProtection.Quantity,
-                Method = plantProtection.Method,
                 Description = plantProtection.Description
             };
         }

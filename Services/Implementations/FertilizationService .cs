@@ -32,7 +32,6 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = fertilizationEditDto.Type,
                 NameOfProduct = fertilizationEditDto.NameOfProduct,
                 Quantity = fertilizationEditDto.Quantity,
-                Method = fertilizationEditDto.Method,
                 Description = fertilizationEditDto.Description
             };
 
@@ -46,7 +45,6 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = fertilization.Type,
                 NameOfProduct = fertilization.NameOfProduct,
                 Quantity = fertilization.Quantity,
-                Method = fertilization.Method,
                 Description = fertilization.Description
             };
         }
@@ -72,7 +70,6 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = fertilization.Type,
                 NameOfProduct = fertilization.NameOfProduct,
                 Quantity = fertilization.Quantity,
-                Method = fertilization.Method,
                 Description = fertilization.Description
             };
         }
@@ -88,7 +85,6 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = fertilization.Type,
                 NameOfProduct = fertilization.NameOfProduct,
                 Quantity = fertilization.Quantity,
-                Method = fertilization.Method,
                 Description = fertilization.Description
             }).ToList();
         }
@@ -112,7 +108,6 @@ namespace FarmManagerAPI.Services.Implementations
             fertilization.Type = fertilizationEditDto.Type;
             fertilization.NameOfProduct = fertilizationEditDto.NameOfProduct;
             fertilization.Quantity = fertilizationEditDto.Quantity;
-            fertilization.Method = fertilizationEditDto.Method;
             fertilization.Description = fertilizationEditDto.Description;
 
             await _fertilizationRepository.Update(fertilization);
@@ -125,7 +120,6 @@ namespace FarmManagerAPI.Services.Implementations
                 Type = fertilization.Type,
                 NameOfProduct = fertilization.NameOfProduct,
                 Quantity = fertilization.Quantity,
-                Method = fertilization.Method,
                 Description = fertilization.Description
             };
         }
