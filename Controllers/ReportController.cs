@@ -16,7 +16,7 @@ namespace FarmManagerAPI.Controllers
             _reportService = reportService;
         }
 
-        [HttpGet("/AgrotechnicalActivitiesReport/{farmId}")]
+        [HttpGet("html/{farmId}")]
         public async Task<ActionResult<string>> GetAgrotechnicalActivitiesReportHtml(Guid farmId)
         {
             try
@@ -25,6 +25,23 @@ namespace FarmManagerAPI.Controllers
                 var htmlReport = _reportService.GenerateAgrotechnicalActivitiesReportHtml(agrotechnicalActivities);
                 return Ok(htmlReport);
             } catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("pdf/{farmId}")]
+        [Produces("application/pdf")]
+        public async Task<ActionResult> GetAgrotechnicalActivitiesReportPdf(Guid farmId)
+        {
+            try
+            {
+                var agrotechnicalActivities = await _reportService.GetAgrotechnicalActivitiesReportData(farmId);
+                var htmlReport = _reportService.GenerateAgrotechnicalActivitiesReportHtml(agrotechnicalActivities);
+                var pdfReport = _reportService.GenerateAgrotechnicalActivitiesReportPdf(htmlReport);
+                var pdfName = "Report " + DateTime.Now.ToString("g") + ".pdf";
+                return File(pdfReport, "application/pdf", pdfName);
+            } catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }

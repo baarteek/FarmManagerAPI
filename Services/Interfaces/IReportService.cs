@@ -6,5 +6,6 @@ namespace FarmManagerAPI.Services.Interfaces
     {
         Task<List<AgrotechnicalActivitiesDTO>> GetAgrotechnicalActivitiesReportData(Guid farmId);
         string GenerateAgrotechnicalActivitiesReportHtml(List<AgrotechnicalActivitiesDTO> agrtechnicalActivities);
+        public byte[] GenerateAgrotechnicalActivitiesReportPdf(string htmlContent);
     }
 }

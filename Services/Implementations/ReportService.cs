@@ -3,6 +3,7 @@ using FarmManagerAPI.Models.Enums;
 using FarmManagerAPI.Repositories.Interfaces;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
+using NReco.PdfGenerator;
 using System.Text;
 
 namespace FarmManagerAPI.Services.Implementations
@@ -123,6 +124,7 @@ namespace FarmManagerAPI.Services.Implementations
             var htmlBuilder = new StringBuilder();
 
             htmlBuilder.Append("<html><head>");
+            htmlBuilder.Append("<meta charset=\"UTF-8\">");
             htmlBuilder.Append("<title>Report</title>");
             htmlBuilder.Append("<style>");
             htmlBuilder.Append("table { width: 100%; border-collapse: collapse; } ");
@@ -204,6 +206,20 @@ namespace FarmManagerAPI.Services.Implementations
             }
 
             return footer.ToString();
+        }
+
+        public byte[] GenerateAgrotechnicalActivitiesReportPdf(string htmlContent)
+        {
+            var htmlToPdf = new HtmlToPdfConverter
+            {
+                Size = PageSize.A4,
+                Orientation = PageOrientation.Landscape,
+                Margins = new PageMargins { Top = 10, Bottom = 10, Left = 10, Right = 10 },
+                CustomWkHtmlArgs = "--encoding utf-8"
+            };
+
+            byte[] pdfBytes = htmlToPdf.GeneratePdf(htmlContent);
+            return pdfBytes;
         }
     }
 }
