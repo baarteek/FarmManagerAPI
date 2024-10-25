@@ -1,6 +1,7 @@
 ﻿using FarmManagerAPI.DTOs;
 using FarmManagerAPI.Repositories.Interfaces;
 using FarmManagerAPI.Services.Interfaces;
+using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -117,16 +118,41 @@ namespace FarmManagerAPI.Services.Implementations
             return agrotechnicalActivities;
         }
 
-
         public string GenerateAgrotechnicalActivitiesReportHtml(List<AgrotechnicalActivitiesDTO> agrtechnicalActivities)
         {
             var htmlBuilder = new StringBuilder();
 
-            htmlBuilder.Append("<html><head><style>");
-            htmlBuilder.Append("<title>Report</title> <style> table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid black; padding: 5px; text-align: center; vertical-align: middle; } </style> </head> <body>");
-            htmlBuilder.Append("<table> <tr> <th colspan=\"10\">WYKAZ DZIAŁAŃ AGROTECHNICZNYCH</th> </tr> <tr> <th>Oznaczenie działki (literowe)</th> <th>Numer działki ewidencyjnej</th> <th>Data wykonania czynności [dd/mm/rrrr]</th> <th>Powierzchnia działki/uprawy [ha,a]</th> <th>Rodzaj użytkowania (uprawa w plonie głównym/uprawa w poplonie)</th> <th>Rodzaj wykonywanej czynności</th> <th>Nazwa środka ochrony roślin</th> <th>Zastosowana ilość środka ochrony roślin/nawozu</th> <th>Działanie/interwencja/praktyka Nummer pakietu lub wariantu</th> <th>Uwagi/powierzchnia wykonywanej czynności</th> </tr> <tr> <th>1</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th> <th>6</th> <th>7</th> <th>8</th> <th>9</th> <th>10</th> </tr>");
+            htmlBuilder.Append("<html><head>");
+            htmlBuilder.Append("<title>Report</title>");
+            htmlBuilder.Append("<style>");
+            htmlBuilder.Append("table { width: 100%; border-collapse: collapse; } ");
+            htmlBuilder.Append("th, td { border: 1px solid black; padding: 10px; text-align: center; vertical-align: middle; } ");
+            htmlBuilder.Append("th { background-color: #f2f2f2; } ");
+            htmlBuilder.Append("</style></head><body>");
 
-            foreach(var aa in agrtechnicalActivities)
+            htmlBuilder.Append("<table>");
+            htmlBuilder.Append("<tr> <th colspan=\"10\">WYKAZ DZIAŁAŃ AGROTECHNICZNYCH</th> </tr>");
+            htmlBuilder.Append("<tr>");
+            htmlBuilder.Append("<th>Oznaczenie działki (literowe)</th>");
+            htmlBuilder.Append("<th>Numer działki ewidencyjnej</th>");
+            htmlBuilder.Append("<th>Data wykonania czynności [dd/mm/rrrr]</th>");
+            htmlBuilder.Append("<th>Powierzchnia działki/uprawy [ha,a]</th>");
+            htmlBuilder.Append("<th>Rodzaj użytkowania (uprawa w plonie głównym/uprawa w poplonie)</th>");
+            htmlBuilder.Append("<th>Rodzaj wykonywanej czynności*</th>");
+            htmlBuilder.Append("<th>Nazwa środka ochrony roślin</th>");
+            htmlBuilder.Append("<th>Zastosowana ilość środka ochrony roślin/nawozu</th>");
+            htmlBuilder.Append("<th>Działanie/interwencja/praktyka Nummer pakietu lub wariantu**</th>");
+            htmlBuilder.Append("<th>Uwagi/powierzchnia wykonywanej czynności***</th>");
+            htmlBuilder.Append("</tr>");
+
+            htmlBuilder.Append("<tr>");
+            for (int i = 1; i <= 10; i++)
+            {
+                htmlBuilder.Append($"<th>{i}</th>");
+            }
+            htmlBuilder.Append("</tr>");
+
+            foreach (var aa in agrtechnicalActivities)
             {
                 htmlBuilder.Append("<tr>");
                 htmlBuilder.Append($"<td>{aa.CropIdentifier}</td>");
@@ -142,9 +168,42 @@ namespace FarmManagerAPI.Services.Implementations
                 htmlBuilder.Append("</tr>");
             }
 
+            htmlBuilder.Append(AddFooterToReportHTML());
             htmlBuilder.Append("</table></body></html>");
 
             return htmlBuilder.ToString();
+        }
+
+        private string AddFooterToReportHTML()
+        {
+            var footer = new StringBuilder();
+
+            footer.Append("<tr><td colspan=\"10\" style=\"padding: 10px; text-align: left;\">");
+            footer.Append("* należy umieścić zapisy dotyczące: zabiegów agrotechnicznych, pielęgnacyjnych i zabiegów wykonanych środkami ochrony roślin, nawożenia i innych zabiegów wykonywanych na danej działce (rolnej)<br>");
+            footer.Append("** wpisć działanie/ interwencję odpowiednią dla oznaczenia wpisanego w kolumnie \"Pakiety/warianty/ interwencje realizowane w gospodarstwie\" , przy czym dla Działania rolno-środowiskowo-klimatycznego PROW 2014-2020 wpisać PRSK1420, dla Rolnictwa ekologicznego wpisać RE1420, dla Płatnosci rolno-środowiskowo-klimatycznych WPR PS wpisać ZRSK2327, dla Rolnictwa ekologicznego WPR PS wpisać RE2327, praktyka Międzyplony ozime lub wsiewki środplonowe wpisac E_MPW, praktyka Opracowanie i przestrzeganie planu nawożenia: wariant podstawowy lub wariant z wapnowaniem wpisać E_OPN, Uproszczone systemy uprawy wpisać E_USU, Wymieszanie słomy z glebą  wpisać E_WSG, Biologiczna ochrona upraw wpisać E_BOU<br>");
+            footer.Append("***należy wypełnić, gdy dana czynność lub zabieg nie są wykonywane na całej powierzchni działki (np. gdy koszeniu podlega 20% pow. działki), bądź w celu uszczegółowienia zapisów znajdujących się w innych kolumnach tego wiersza np. wskazanie sposobu realizacji integrowanej ochrony roślin (podanie co najmniej przyczyny wykonania zabiegu środkiem ochrony roślin) </td></tr>");
+
+            footer.Append("<tr>");
+            footer.Append("<td rowspan=\"3\" style=\"vertical-align: top; padding: 15px; background-color: lightgray;\">Pole wypełniane podczas kontroli na miejscu</td>");
+            footer.Append("<td colspan=\"2\" style=\"height: 40px; background-color: lightgray;\">Data kontroli</td>");
+            footer.Append("<td colspan=\"2\" style=\"height: 40px; background-color: lightgray;\">Nazwisko i imię inspektora</td>");
+            footer.Append("<td colspan=\"2\" style=\"height: 40px; background-color: lightgray;\">Podpis inspektora terenowego</td>");
+            footer.Append("<td colspan=\"2\" style=\"height: 40px; background-color: lightgray;\">Nazwisko i imię osoby obecnej przy kontroli</td>");
+            footer.Append("<td colspan=\"2\" style=\"height: 40px; background-color: lightgray;\">Podpis osoby obecnej przy kontroli</td>");
+            footer.Append("</tr>");
+
+            for (int i = 0; i < 2; i++)
+            {
+                footer.Append("<tr>");
+                footer.Append("<td colspan=\"2\" style=\"height: 40px; background-color: lightgray;\"></td>");
+                footer.Append("<td colspan=\"2\" style=\"height: 40px; background-color: lightgray;\"></td>");
+                footer.Append("<td colspan=\"2\" style=\"height: 40px; background-color: lightgray;\"></td>");
+                footer.Append("<td colspan=\"2\" style=\"height: 40px; background-color: lightgray;\"></td>");
+                footer.Append("<td colspan=\"2\" style=\"height: 40px; background-color: lightgray;\"></td>");
+                footer.Append("</tr>");
+            }
+
+            return footer.ToString();
         }
     }
 }

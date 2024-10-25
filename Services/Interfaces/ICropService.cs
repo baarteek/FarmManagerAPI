@@ -1,5 +1,4 @@
 ﻿using FarmManagerAPI.DTOs;
-using FarmManagerAPI.Models;
 
 namespace FarmManagerAPI.Services.Interfaces
 {
