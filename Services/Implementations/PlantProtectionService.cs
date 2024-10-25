@@ -1,5 +1,6 @@
 ﻿using FarmManagerAPI.DTOs;
 using FarmManagerAPI.Models;
+using FarmManagerAPI.Models.Enums;
 using FarmManagerAPI.Repositories.Interfaces;
 using FarmManagerAPI.Services.Interfaces;
 
@@ -30,6 +31,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = crop,
                 Date = plantProtectionEditDto.Date,
                 Type = plantProtectionEditDto.Type,
+                AgrotechnicalIntervention = plantProtectionEditDto.AgrotechnicalIntervention,
                 Quantity = plantProtectionEditDto.Quantity,
                 NameOfProduct = plantProtectionEditDto.NameOfProduct,
                 Description = plantProtectionEditDto.Description
@@ -43,6 +45,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = new MiniItemDTO { Id = plantProtection.Crop.Id.ToString(), Name = plantProtection.Crop.Name },
                 Date = plantProtection.Date,
                 Type = plantProtection.Type,
+                AgrotechnicalIntervention = plantProtection.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), plantProtection.AgrotechnicalIntervention) : null,
                 Quantity = plantProtection.Quantity,
                 NameOfProduct = plantProtection.NameOfProduct,
                 Description = plantProtection.Description
@@ -68,6 +71,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = new MiniItemDTO { Id = plantProtection.Crop.Id.ToString(), Name = plantProtection.Crop.Name },
                 Date = plantProtection.Date,
                 Type = plantProtection.Type,
+                AgrotechnicalIntervention = plantProtection.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), plantProtection.AgrotechnicalIntervention) : null,
                 NameOfProduct = plantProtection.NameOfProduct,
                 Quantity = plantProtection.Quantity,
                 Description = plantProtection.Description
@@ -83,6 +87,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = new MiniItemDTO { Id = pp.Crop.Id.ToString(), Name = pp.Crop.Name },
                 Date = pp.Date,
                 Type = pp.Type,
+                AgrotechnicalIntervention = pp.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), pp.AgrotechnicalIntervention) : null,
                 NameOfProduct = pp.NameOfProduct,
                 Quantity = pp.Quantity,
                 Description = pp.Description
@@ -106,6 +111,7 @@ namespace FarmManagerAPI.Services.Implementations
             plantProtection.Crop = crop;
             plantProtection.Date = plantProtectionEditDto.Date;
             plantProtection.Type = plantProtectionEditDto.Type;
+            plantProtection.AgrotechnicalIntervention = plantProtectionEditDto.AgrotechnicalIntervention;
             plantProtection.NameOfProduct = plantProtectionEditDto.NameOfProduct;
             plantProtection.Quantity = plantProtectionEditDto.Quantity;
             plantProtection.Description = plantProtectionEditDto.Description;
@@ -118,6 +124,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Crop = new MiniItemDTO { Id = plantProtection.Crop.Id.ToString(), Name = plantProtection.Crop.Name },
                 Date = plantProtection.Date,
                 Type = plantProtection.Type,
+                AgrotechnicalIntervention = plantProtection.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), plantProtection.AgrotechnicalIntervention) : null,
                 NameOfProduct = plantProtection.NameOfProduct,
                 Quantity = plantProtection.Quantity,
                 Description = plantProtection.Description

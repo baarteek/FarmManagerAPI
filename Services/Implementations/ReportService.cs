@@ -1,7 +1,7 @@
 ﻿using FarmManagerAPI.DTOs;
+using FarmManagerAPI.Models.Enums;
 using FarmManagerAPI.Repositories.Interfaces;
 using FarmManagerAPI.Services.Interfaces;
-using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -66,7 +66,7 @@ namespace FarmManagerAPI.Services.Implementations
                                 TypeOfActivity = operation.Name,
                                 NameOfPlantProtectionProduct = "nd",
                                 AmountOfPlatnProtectionProduct = "nd",
-                                PackageNumber = "", // TODO
+                                PackageNumber = operation.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), operation.AgrotechnicalIntervention) : String.Empty,
                                 Comments = operation.Description,
                             });
                         }
@@ -87,7 +87,7 @@ namespace FarmManagerAPI.Services.Implementations
                                 TypeOfActivity = "oprysk",
                                 NameOfPlantProtectionProduct = plantProtection.NameOfProduct,
                                 AmountOfPlatnProtectionProduct = plantProtection.Quantity.ToString() + " l/ha",
-                                PackageNumber = "", // TODO
+                                PackageNumber = plantProtection.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), plantProtection.AgrotechnicalIntervention) : String.Empty,
                                 Comments = plantProtection.Description,
                             });
                         }
@@ -108,7 +108,7 @@ namespace FarmManagerAPI.Services.Implementations
                                 TypeOfActivity = "nawożenie",
                                 NameOfPlantProtectionProduct = ferelization.NameOfProduct,
                                 AmountOfPlatnProtectionProduct = ferelization.Quantity.ToString() + " t/ha",
-                                PackageNumber = "", // TODO
+                                PackageNumber = ferelization.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), ferelization.AgrotechnicalIntervention) : String.Empty,
                                 Comments = ferelization.Description
                             });
                         }

@@ -8,6 +8,7 @@ namespace FarmManagerAPI.Models
         public Crop Crop { get; set; }
         public DateTime Date { get; set; }
         public FertilizationType Type { get; set; }
+        public AgrotechnicalIntervention? AgrotechnicalIntervention { get; set; }
         public string? NameOfProduct { get; set; }
         public double? Quantity { get; set; }
         public string? Description { get; set; }

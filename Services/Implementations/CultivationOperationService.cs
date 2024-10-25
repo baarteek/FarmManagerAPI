@@ -1,5 +1,6 @@
 using FarmManagerAPI.DTOs;
 using FarmManagerAPI.Models;
+using FarmManagerAPI.Models.Enums;
 using FarmManagerAPI.Repositories.Interfaces;
 using FarmManagerAPI.Services.Interfaces;
 
@@ -29,6 +30,7 @@ public class CultivationOperationService : ICultivationOperationService
             Id = cultivationOperation.Id,
             Name = cultivationOperation.Name,
             Date = cultivationOperation.Date,
+            AgrotechnicalIntervention = cultivationOperation.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), cultivationOperation.AgrotechnicalIntervention) : null,
             Description = cultivationOperation.Description,
             Crop = new MiniItemDTO { Id = cultivationOperation.Crop.Id.ToString(), Name = cultivationOperation.Crop.Name}
         };
@@ -43,6 +45,7 @@ public class CultivationOperationService : ICultivationOperationService
             Id = operation.Id,
             Name = operation.Name,
             Date = operation.Date,
+            AgrotechnicalIntervention = operation.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), operation.AgrotechnicalIntervention) : null,
             Description = operation.Description,
             Crop = new MiniItemDTO { Id = operation.Crop.Id.ToString(), Name = operation.Crop.Name}
         });
@@ -61,6 +64,7 @@ public class CultivationOperationService : ICultivationOperationService
             Id = Guid.NewGuid(),
             Name = operation.Name,
             Date = operation.Date,
+            AgrotechnicalIntervention = operation.AgrotechnicalIntervention,
             Description = operation.Description,
             Crop = crop
         };
@@ -84,6 +88,7 @@ public class CultivationOperationService : ICultivationOperationService
         
         cultivationOperation.Name = operation.Name;
         cultivationOperation.Date = operation.Date;
+        cultivationOperation.AgrotechnicalIntervention = operation.AgrotechnicalIntervention;
         cultivationOperation.Description = operation.Description;
         cultivationOperation.Crop = crop;
         

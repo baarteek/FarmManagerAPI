@@ -1,3 +1,5 @@
+using FarmManagerAPI.Models.Enums;
+
 namespace FarmManagerAPI.DTOs;
 
 public class CultivationOperationDTO
@@ -6,5 +8,6 @@ public class CultivationOperationDTO
     public string Name { get; set; }
     public string? Description { get; set; }
     public DateTime Date { get; set; }
+    public string? AgrotechnicalIntervention { get; set; }
     public MiniItemDTO Crop { get; set; }
 }
