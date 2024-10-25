@@ -9,5 +9,6 @@ public class CultivationOperationDTO
     public string? Description { get; set; }
     public DateTime Date { get; set; }
     public string? AgrotechnicalIntervention { get; set; }
+    public string? AgrotechicalIntervationDescription { get; set; }
     public MiniItemDTO Crop { get; set; }
 }

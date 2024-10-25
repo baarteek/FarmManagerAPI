@@ -31,6 +31,7 @@ public class CultivationOperationService : ICultivationOperationService
             Name = cultivationOperation.Name,
             Date = cultivationOperation.Date,
             AgrotechnicalIntervention = cultivationOperation.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), cultivationOperation.AgrotechnicalIntervention) : null,
+            AgrotechicalIntervationDescription = cultivationOperation.AgrotechnicalIntervention?.GetDescription(),
             Description = cultivationOperation.Description,
             Crop = new MiniItemDTO { Id = cultivationOperation.Crop.Id.ToString(), Name = cultivationOperation.Crop.Name}
         };
@@ -46,6 +47,7 @@ public class CultivationOperationService : ICultivationOperationService
             Name = operation.Name,
             Date = operation.Date,
             AgrotechnicalIntervention = operation.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), operation.AgrotechnicalIntervention) : null,
+            AgrotechicalIntervationDescription = operation.AgrotechnicalIntervention?.GetDescription(),
             Description = operation.Description,
             Crop = new MiniItemDTO { Id = operation.Crop.Id.ToString(), Name = operation.Crop.Name}
         });

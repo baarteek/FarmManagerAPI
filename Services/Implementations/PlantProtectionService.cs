@@ -46,6 +46,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Date = plantProtection.Date,
                 Type = plantProtection.Type,
                 AgrotechnicalIntervention = plantProtection.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), plantProtection.AgrotechnicalIntervention) : null,
+                AgrotechicalIntervationDescription = plantProtection.AgrotechnicalIntervention?.GetDescription(),
                 Quantity = plantProtection.Quantity,
                 NameOfProduct = plantProtection.NameOfProduct,
                 Description = plantProtection.Description
@@ -72,6 +73,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Date = plantProtection.Date,
                 Type = plantProtection.Type,
                 AgrotechnicalIntervention = plantProtection.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), plantProtection.AgrotechnicalIntervention) : null,
+                AgrotechicalIntervationDescription = plantProtection.AgrotechnicalIntervention?.GetDescription(),
                 NameOfProduct = plantProtection.NameOfProduct,
                 Quantity = plantProtection.Quantity,
                 Description = plantProtection.Description
@@ -88,6 +90,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Date = pp.Date,
                 Type = pp.Type,
                 AgrotechnicalIntervention = pp.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), pp.AgrotechnicalIntervention) : null,
+                AgrotechicalIntervationDescription = pp.AgrotechnicalIntervention?.GetDescription(),
                 NameOfProduct = pp.NameOfProduct,
                 Quantity = pp.Quantity,
                 Description = pp.Description
@@ -125,6 +128,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Date = plantProtection.Date,
                 Type = plantProtection.Type,
                 AgrotechnicalIntervention = plantProtection.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), plantProtection.AgrotechnicalIntervention) : null,
+                AgrotechicalIntervationDescription = plantProtection.AgrotechnicalIntervention?.GetDescription(),
                 NameOfProduct = plantProtection.NameOfProduct,
                 Quantity = plantProtection.Quantity,
                 Description = plantProtection.Description

@@ -46,6 +46,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Date = fertilization.Date,
                 Type = fertilization.Type,
                 AgrotechnicalIntervention = fertilization.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), fertilization.AgrotechnicalIntervention) : null,
+                AgrotechicalIntervationDescription = fertilization.AgrotechnicalIntervention?.GetDescription(),
                 NameOfProduct = fertilization.NameOfProduct,
                 Quantity = fertilization.Quantity,
                 Description = fertilization.Description
@@ -72,6 +73,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Date = fertilization.Date,
                 Type = fertilization.Type,
                 AgrotechnicalIntervention = fertilization.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), fertilization.AgrotechnicalIntervention) : null,
+                AgrotechicalIntervationDescription = fertilization.AgrotechnicalIntervention?.GetDescription(),
                 NameOfProduct = fertilization.NameOfProduct,
                 Quantity = fertilization.Quantity,
                 Description = fertilization.Description
@@ -88,6 +90,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Date = fertilization.Date,
                 Type = fertilization.Type,
                 AgrotechnicalIntervention = fertilization.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), fertilization.AgrotechnicalIntervention) : null,
+                AgrotechicalIntervationDescription = fertilization.AgrotechnicalIntervention?.GetDescription(),
                 NameOfProduct = fertilization.NameOfProduct,
                 Quantity = fertilization.Quantity,
                 Description = fertilization.Description
@@ -125,6 +128,7 @@ namespace FarmManagerAPI.Services.Implementations
                 Date = fertilization.Date,
                 Type = fertilization.Type,
                 AgrotechnicalIntervention = fertilization.AgrotechnicalIntervention != null ? Enum.GetName(typeof(AgrotechnicalIntervention), fertilization.AgrotechnicalIntervention) : null,
+                AgrotechicalIntervationDescription = fertilization.AgrotechnicalIntervention?.GetDescription(),
                 NameOfProduct = fertilization.NameOfProduct,
                 Quantity = fertilization.Quantity,
                 Description = fertilization.Description
