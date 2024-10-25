@@ -64,8 +64,8 @@ namespace FarmManagerAPI.Services.Implementations
                                 Area = parcel.Area,
                                 TypeOfUse = crop.Name,
                                 TypeOfActivity = operation.Name,
-                                NameOfPlantProtectionProduct = "-",
-                                AmountOfPlatnProtectionProduct = "-",
+                                NameOfPlantProtectionProduct = "nd",
+                                AmountOfPlatnProtectionProduct = "nd",
                                 PackageNumber = "", // TODO
                                 Comments = operation.Description,
                             });
@@ -126,7 +126,7 @@ namespace FarmManagerAPI.Services.Implementations
             htmlBuilder.Append("<title>Report</title>");
             htmlBuilder.Append("<style>");
             htmlBuilder.Append("table { width: 100%; border-collapse: collapse; } ");
-            htmlBuilder.Append("th, td { border: 1px solid black; padding: 10px; text-align: center; vertical-align: middle; } ");
+            htmlBuilder.Append("th, td { border: 2px solid black; padding: 8px; text-align: center; vertical-align: middle; } ");
             htmlBuilder.Append("th { background-color: #f2f2f2; } ");
             htmlBuilder.Append("</style></head><body>");
 
@@ -157,7 +157,7 @@ namespace FarmManagerAPI.Services.Implementations
                 htmlBuilder.Append("<tr>");
                 htmlBuilder.Append($"<td>{aa.CropIdentifier}</td>");
                 htmlBuilder.Append($"<td>{aa.PlotNumber}</td>");
-                htmlBuilder.Append($"<td>{aa.Date}</td>");
+                htmlBuilder.Append($"<td>{aa.Date?.ToString("dd/MM/yyyy")}</td>");
                 htmlBuilder.Append($"<td>{aa.Area}</td>");
                 htmlBuilder.Append($"<td>{aa.TypeOfUse}</td>");
                 htmlBuilder.Append($"<td>{aa.TypeOfActivity}</td>");
