@@ -1,6 +1,7 @@
 ﻿using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace FarmManagerAPI.Controllers
 {
@@ -42,6 +43,25 @@ namespace FarmManagerAPI.Controllers
                 var pdfName = "Report " + DateTime.Now.ToString("g") + ".pdf";
                 return File(pdfReport, "application/pdf", pdfName);
             } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("excel/{farmId}")]
+        [Produces("application/vnd.ms-excel")]
+        public async Task<IActionResult> GetAgrotechnicalActivitiesReportExcelFromHtml(Guid farmId)
+        {
+            try
+            {
+                var agrotechnicalActivities = await _reportService.GetAgrotechnicalActivitiesReportData(farmId);
+                var htmlContent = _reportService.GenerateAgrotechnicalActivitiesReportHtml(agrotechnicalActivities);
+                var contentBytes = Encoding.UTF8.GetBytes(htmlContent);
+                var fileName = "Report " + DateTime.Now.ToString("g") + ".xls";
+
+                return File(contentBytes, "application/vnd.ms-excel", fileName);
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
