@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using FarmManagerAPI.DTOs;
 using FarmManagerAPI.Models;
+using FarmManagerAPI.Models.Enums;
 using FarmManagerAPI.Repositories.Interfaces;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -209,6 +210,21 @@ namespace FarmManagerAPI.Services.Implementations
             crop.IsActive = cropEditDTO.IsActive;
 
             await _cropRepository.Update(crop);
+        }
+
+        public async Task<IEnumerable<EnumDTO>> GetAgrotechnicalInterventions()
+        {
+            return await Task.Run(() =>
+            {
+                return Enum.GetValues(typeof(AgrotechnicalIntervention))
+                .Cast<AgrotechnicalIntervention>()
+                .Select(intervention => new EnumDTO
+                {
+                    Value = (int)intervention,
+                    Name = intervention.ToString(),
+                    Description = intervention.GetDescription(),
+                });
+            });
         }
     }
 }

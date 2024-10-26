@@ -3,6 +3,7 @@ using FarmManagerAPI.Models.Enums;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
 namespace FarmManagerAPI.Controllers
@@ -124,6 +125,13 @@ namespace FarmManagerAPI.Controllers
                 .ToList();
 
             return Ok(values);
+        }
+
+        [HttpGet("/AgrotechnicalInterventions")]
+        public async Task<ActionResult<IEnumerable<EnumDTO>>> GetAgrotechnicalInterventions()
+        {
+            var interventions = await _cropService.GetAgrotechnicalInterventions();
+            return Ok(interventions);
         }
     }
 }

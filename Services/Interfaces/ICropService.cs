@@ -11,5 +11,6 @@ namespace FarmManagerAPI.Services.Interfaces
         Task<CropDTO> AddCrop(CropEditDTO cropEditDTO);
         Task UpdateCrop(Guid id, CropEditDTO cropEditDTO);
         Task DeleteCrop(Guid id);
+        Task<IEnumerable<EnumDTO>> GetAgrotechnicalInterventions();
     }
 }
