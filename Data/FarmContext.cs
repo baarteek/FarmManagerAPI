@@ -17,5 +17,28 @@ namespace FarmManagerAPI.Data
         public DbSet<ReferenceParcel> ReferenceParcels { get; set; }
         public DbSet<SoilMeasurement> SoilMeasurements { get; set; }
         public DbSet<CultivationOperation> CultivationOperations { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            
+            var userId = Guid.NewGuid().ToString();
+            var user = new IdentityUser
+            {
+                Id = userId,
+                UserName = "string",
+                NormalizedUserName = "STRING",
+                Email = "user@example.com",
+                NormalizedEmail = "USER@EXAMPLE.COM",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = Guid.NewGuid().ToString("D")
+            };
+
+            var passwordHasher = new PasswordHasher<IdentityUser>();
+            user.PasswordHash = passwordHasher.HashPassword(user, "string");
+
+            modelBuilder.Entity<IdentityUser>().HasData(user);
+        }
     }
 }
