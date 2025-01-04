@@ -2,6 +2,7 @@
 {
     public enum CropType
     {
+        NotSelected,
         Cereal, 
         Vegetable, 
         Fruit,
@@ -14,7 +15,6 @@
         Spice,
         Medicinal,
         Ornamental,
-        Other,
-        NotSelected
+        Other
     }
 }

@@ -2,6 +2,7 @@
 {
     public enum SoilType
     {
+        NotSelected,
         Brown,
         Chernozem,
         Podzol,
@@ -13,7 +14,6 @@
         Loess,
         Clay,
         Sandy,
-        Other,
-        NotSelected
+        Other
     }
 }

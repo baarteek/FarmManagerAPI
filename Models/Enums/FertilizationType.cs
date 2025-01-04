@@ -2,6 +2,7 @@
 {
     public enum FertilizationType
     {
+        NotSelected,
         Organic,
         Inorganic,
         SlowRelease,

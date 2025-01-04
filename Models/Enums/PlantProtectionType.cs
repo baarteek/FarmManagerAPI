@@ -2,6 +2,7 @@
 {
     public enum PlantProtectionType
     {
+        NotSelected,
         Herbicide,
         Insecticide,
         Fungicide,

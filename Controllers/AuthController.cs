@@ -61,7 +61,7 @@ namespace FarmManagerAPI.Controllers
             if (result.Succeeded)
             {
                 var token = GenerateJwtToken(user);
-                return Ok(new { token });
+                return Ok(new { Token = token });
             }
 
             return Unauthorized();
