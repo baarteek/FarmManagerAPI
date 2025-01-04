@@ -47,7 +47,7 @@ namespace FarmManagerAPI.Controllers
             var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if(userName == null)
             {
-                return Unauthorized("User ID not found in token");
+                return Unauthorized("User ID not found in token.");
             }
 
             var farms = await _farmService.GetFarmsNamesAndIdByUser(userName);
