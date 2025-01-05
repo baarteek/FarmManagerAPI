@@ -8,7 +8,7 @@ namespace FarmManagerAPI.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class ReportController : ControllerBase
+    public class ReportController  : ControllerBase
     {
         private readonly IReportService _reportService;
 

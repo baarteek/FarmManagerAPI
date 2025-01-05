@@ -13,12 +13,12 @@ namespace FarmManagerAPI.Controllers
     [ApiController]
     public class FileUploadController : ControllerBase
     {
-        private readonly IGmlFileUploadService _gmFlileUploadService;
+        private readonly IGmlFileUploadService _gmFileUploadService;
         private readonly ICsvFileUploadService _csvFileUploadService;
 
         public FileUploadController(IGmlFileUploadService gmlFileUploadService, ICsvFileUploadService csvFileUploadService)
         {
-            _gmFlileUploadService = gmlFileUploadService;
+            _gmFileUploadService = gmlFileUploadService;
             _csvFileUploadService = csvFileUploadService;
         }
 
@@ -32,7 +32,7 @@ namespace FarmManagerAPI.Controllers
 
             try
             { 
-                await _gmFlileUploadService.ReadFileContent(file, farmId);
+                await _gmFileUploadService.ReadFileContent(file, farmId);
                 return Ok(new { message = "File uploaded and processed successfully", fileName = file.FileName });
             }
             catch (ArgumentException ex)

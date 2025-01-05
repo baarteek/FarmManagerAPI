@@ -3,7 +3,6 @@ using FarmManagerAPI.Models.Enums;
 using FarmManagerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
 namespace FarmManagerAPI.Controllers
