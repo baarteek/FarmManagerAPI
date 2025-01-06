@@ -1,11 +1,8 @@
 ﻿using CsvHelper;
 using System.Globalization;
-using Microsoft.AspNetCore.Http;
-using System.IO;
 using FarmManagerAPI.Services.Interfaces;
 using FarmManagerAPI.Repositories.Interfaces;
 using Microsoft.IdentityModel.Tokens;
-using FarmManagerAPI.DTOs;
 using FarmManagerAPI.Models;
 
 namespace FarmManagerAPI.Services.Implementations

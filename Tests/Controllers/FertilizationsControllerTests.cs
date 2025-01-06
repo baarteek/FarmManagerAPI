@@ -178,11 +178,12 @@ namespace FarmManagerAPI.Tests.Controllers
         public void GetFertilizationTypes_ReturnsEnumValues()
         {
             var result = _controller.GetFertilizationTypes();
+            
             var actionResult = Assert.IsType<OkObjectResult>(result);
             
             var fertilizationTypes = Assert.IsAssignableFrom<IEnumerable<EnumResponse>>(actionResult.Value);
             var fertilizationTypesList = fertilizationTypes.ToList();
-    
+
             Assert.NotEmpty(fertilizationTypesList);
             Assert.Contains(fertilizationTypesList, f => f.Name == FertilizationType.NotSelected.ToString());
         }

@@ -77,13 +77,13 @@ namespace FarmManagerAPI.Services.Implementations
             var parcel = await _parcelRepository.GetById(id);
             if (parcel == null)
             {
-                throw new Exception($"Parcel not found with ID: {parcel.Id}");
+                throw new Exception($"Parcel not found with ID: {id}"); // Użyj `id` zamiast `parcel.Id`
             }
 
             var field = await _fieldRepository.GetById(parcelEditDto.FieldId);
             if (field == null)
             {
-                throw new Exception($"Field not found with ID: {field.Id}");
+                throw new Exception($"Field not found with ID: {parcelEditDto.FieldId}");
             }
 
             parcel.ParcelNumber = parcelEditDto.ParcelNumber;

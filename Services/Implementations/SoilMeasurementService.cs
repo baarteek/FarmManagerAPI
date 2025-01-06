@@ -2,10 +2,6 @@
 using FarmManagerAPI.Models;
 using FarmManagerAPI.Repositories.Interfaces;
 using FarmManagerAPI.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FarmManagerAPI.Services.Implementations
 {

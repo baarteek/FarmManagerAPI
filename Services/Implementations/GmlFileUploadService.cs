@@ -57,7 +57,7 @@ namespace FarmManagerAPI.Services.Implementations
             }
         }
 
-        private async Task ProcessCrop(XElement crop, Guid farmId)
+        public async Task ProcessCrop(XElement crop, Guid farmId)
         {
             var coordinates = GetCoordinates(crop);
             if (coordinates == null)
@@ -65,7 +65,9 @@ namespace FarmManagerAPI.Services.Implementations
                 throw new InvalidOperationException("No coordinates found for a crop.");
             }
 
-            if (!double.TryParse(crop.Elements().FirstOrDefault(e => e.Name.LocalName == "powierzchnia")?.Value, out double area))
+            var areaElement = crop.Elements().FirstOrDefault(e => e.Name.LocalName == "powierzchnia")?.Value;
+
+            if (!double.TryParse(areaElement, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double area))
             {
                 throw new InvalidOperationException("Invalid area value. Skipping this crop.");
             }
@@ -144,7 +146,7 @@ namespace FarmManagerAPI.Services.Implementations
             await _cropRepository.Add(newCrop);
         }
 
-        private List<List<List<double>>> ParseCoordinatesToGeoJson(string posList)
+        public List<List<List<double>>> ParseCoordinatesToGeoJson(string posList)
         {
             var coordinates = posList
                 .Split(' ')

@@ -79,13 +79,12 @@ namespace FarmManagerAPI.Services.Implementations
             var crop = await _cropRepository.GetById(id);
             if (crop == null)
             {
-                throw new Exception($"Crop not found with ID: {crop.Field.Id}");
+                throw new Exception($"Crop not found with ID: {id}");
             }
 
             crop.Fertilizations = (await _fertilizationRepository.GetFertilizationsByCropId(id)).ToList();
             crop.PlantProtections = (await _plantProtectionRepository.GetPlantProtectionsByCropId(id)).ToList();
             crop.CultivationOperations = (await _cultivationOperationRepository.GetCultivationOperationsByCropId(id)).ToList();
-            
 
             return new CropDTO
             {
