@@ -16,8 +16,8 @@ namespace FarmManagerAPI.Services.Implementations
         private const string GmlNamespace = "http://www.opengis.net/gml/3.2";
 
         public GmlFileUploadService(
-            IFarmRepository farmRepository, 
-            IFieldRepository fieldRepository, 
+            IFarmRepository farmRepository,
+            IFieldRepository fieldRepository,
             ICropRepository cropRepository)
         {
             _farmRepository = farmRepository;
@@ -66,10 +66,11 @@ namespace FarmManagerAPI.Services.Implementations
             }
 
             var areaElement = crop.Elements().FirstOrDefault(e => e.Name.LocalName == "powierzchnia")?.Value;
+            var normalizedAreaElement = areaElement.Replace(',', '.');
 
-            if (!double.TryParse(areaElement, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double area))
+            if (!double.TryParse(normalizedAreaElement, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double area))
             {
-                throw new InvalidOperationException("Invalid area value. Skipping this crop.");
+                throw new InvalidOperationException($"Invalid area value: {areaElement}. Skipping this crop.");
             }
 
             var plantType = crop.Elements().FirstOrDefault(e => e.Name.LocalName == "roslina_uprawna")?.Value ?? "Unknown Plant";
@@ -150,9 +151,15 @@ namespace FarmManagerAPI.Services.Implementations
         {
             var coordinates = posList
                 .Split(' ')
+                .Select(val => val.Replace(',', '.'))
                 .Select((val, index) => new { val, index })
                 .GroupBy(x => x.index / 2)
-                .Select(g => new List<double> { double.Parse(g.ElementAt(0).val), double.Parse(g.ElementAt(1).val) })
+                .Select(g =>
+                    new List<double>
+                    {
+                        double.TryParse(g.ElementAt(0).val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var x) ? x : 0,
+                        double.TryParse(g.ElementAt(1).val, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var y) ? y : 0
+                    })
                 .ToList();
 
             return new List<List<List<double>>> { new List<List<double>>(coordinates) };
