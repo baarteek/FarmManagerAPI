@@ -1,5 +1,3 @@
-using FarmManagerAPI.Models.Enums;
-
 namespace FarmManagerAPI.DTOs;
 
 public class CultivationOperationDTO

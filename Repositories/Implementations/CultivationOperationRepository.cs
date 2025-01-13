@@ -28,4 +28,15 @@ public class CultivationOperationRepository : GenericRepository<CultivationOpera
             .Where(c => c.Crop.Id == cropId)
             .ToListAsync();
     }
+
+    public async Task<CultivationOperation?> GetLatestCultivationOperationByUser(string userId)
+    {
+        return await _context.CultivationOperations
+            .Include(co => co.Crop)
+            .ThenInclude(c => c.Field)
+            .ThenInclude(f => f.Farm)
+            .Where(co => co.Crop.Field.Farm.User.Id == userId)
+            .OrderByDescending(co => co.Date)
+            .FirstOrDefaultAsync();
+    }
 }

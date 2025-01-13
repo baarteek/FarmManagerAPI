@@ -11,5 +11,6 @@ namespace FarmManagerAPI.Repositories.Interfaces
         Task<IEnumerable<Crop>> GetActiveCropsByFieldId(Guid fieldId);
         Task<Guid> GetCropIdByIdentifierAndFieldId(string cropIdentifier, Guid fieldId);
         Task<Guid> GetFieldIdByCropIdentifier(string cropIdentifier);
+        
     }
 }

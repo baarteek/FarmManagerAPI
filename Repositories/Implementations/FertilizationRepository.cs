@@ -22,6 +22,17 @@ namespace FarmManagerAPI.Repositories.Implementations
                 .ToListAsync();
         }
 
+        public async Task<Fertilization?> GetLatestFertilizationByUser(string userId)
+        {
+            return await _context.Fertilizations
+                .Include(f => f.Crop)
+                .ThenInclude(c => c.Field)
+                .ThenInclude(fi => fi.Farm)
+                .Where(f => f.Crop.Field.Farm.User.Id == userId)
+                .OrderByDescending(f => f.Date)
+                .FirstOrDefaultAsync();
+        }
+
         public override async Task<Fertilization> GetById(Guid id)
         {
             return await _context.Fertilizations
