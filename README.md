@@ -50,9 +50,7 @@ This backend system integrates with frontend applications and ensures high perfo
 - **Entity Framework Core** – ORM for database management.
 - **SQL Server** – Primary database.
 - **JWT Authentication** – Secure authentication.
-- **GeoJSON & GML** – Map data storage and visualization.
 - **xUnit** – Unit testing framework.
-- **Serilog** – Logging and monitoring.
 
 ---
 
