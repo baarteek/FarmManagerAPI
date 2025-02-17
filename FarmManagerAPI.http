@@ -1,6 +1,0 @@
-@FarmManagerAPI_HostAddress = http://localhost:5226
-
-GET {{FarmManagerAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
